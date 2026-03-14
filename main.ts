@@ -308,5 +308,5 @@ controller.moveSprite(mySprite)
 let tilemap1 = tilemap`level1`
 scene.setBackgroundColor(12)
 tiles.setCurrentTilemap(tilemap1)
-tiles.placeOnRandomTile(mySprite, assets.tile`bed1`)
+tiles.placeOnRandomTile(mySprite, sprites.dungeon.darkGroundCenter)
 scene.cameraFollowSprite(mySprite)
