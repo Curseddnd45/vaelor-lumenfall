@@ -306,7 +306,9 @@ let mySprite: Sprite = null
 mySprite = sprites.create(assets.image`playerImage`, SpriteKind.Player)
 controller.moveSprite(mySprite)
 let tilemap1 = tilemap`level1`
+let tilemap2 = tilemap`level2`
 scene.setBackgroundColor(12)
 tiles.setCurrentTilemap(tilemap1)
-tiles.placeOnRandomTile(mySprite, sprites.dungeon.darkGroundCenter)
+tiles.placeOnRandomTile(mySprite, assets.tile`bed1`)
 scene.cameraFollowSprite(mySprite)
+tileUtil.connectMaps(tilemap1, tilemap2, MapConnectionKind.Door1)
