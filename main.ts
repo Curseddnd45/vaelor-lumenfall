@@ -150,6 +150,15 @@ controller.left.onEvent(ControllerButtonEvent.Pressed, function () {
     characterAnimations.rule(Predicate.MovingLeft)
     )
 })
+scene.onOverlapTile(SpriteKind.Player, tileUtil.door1, function (sprite, location) {
+    tileUtil.loadConnectedMap(MapConnectionKind.Door1)
+    tiles.placeOnRandomTile(mySprite, tileUtil.door1)
+    if (tileUtil.currentTilemap() == tilemap2) {
+        mySprite.y += 16
+    } else if (tileUtil.currentTilemap() == tilemap1) {
+        mySprite.y += -16
+    }
+})
 controller.right.onEvent(ControllerButtonEvent.Pressed, function () {
     characterAnimations.loopFrames(
     mySprite,
@@ -302,11 +311,13 @@ controller.down.onEvent(ControllerButtonEvent.Pressed, function () {
     characterAnimations.rule(Predicate.MovingDown)
     )
 })
+let tilemap2: tiles.TileMapData = null
+let tilemap1: tiles.TileMapData = null
 let mySprite: Sprite = null
 mySprite = sprites.create(assets.image`playerImage`, SpriteKind.Player)
 controller.moveSprite(mySprite)
-let tilemap1 = tilemap`level1`
-let tilemap2 = tilemap`level2`
+tilemap1 = tilemap`level1`
+tilemap2 = tilemap`level2`
 scene.setBackgroundColor(12)
 tiles.setCurrentTilemap(tilemap1)
 tiles.placeOnRandomTile(mySprite, assets.tile`bed1`)
