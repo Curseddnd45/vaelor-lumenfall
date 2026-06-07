@@ -1,3 +1,6 @@
+namespace SpriteKind {
+    export const Map = SpriteKind.create()
+}
 controller.up.onEvent(ControllerButtonEvent.Pressed, function () {
     characterAnimations.loopFrames(
     mySprite,
@@ -155,8 +158,10 @@ scene.onOverlapTile(SpriteKind.Player, tileUtil.door1, function (sprite, locatio
     tiles.placeOnRandomTile(mySprite, tileUtil.door1)
     if (tileUtil.currentTilemap() == tilemap2) {
         mySprite.y += 16
+        tileUtil.coverAllTiles(tileUtil.door1, sprites.dungeon.doorOpenNorth)
     } else if (tileUtil.currentTilemap() == tilemap1) {
         mySprite.y += -16
+        tileUtil.coverAllTiles(tileUtil.door1, sprites.dungeon.doorOpenSouth)
     }
 })
 controller.right.onEvent(ControllerButtonEvent.Pressed, function () {
@@ -315,6 +320,8 @@ let tilemap2: tiles.TileMapData = null
 let tilemap1: tiles.TileMapData = null
 let mySprite: Sprite = null
 mySprite = sprites.create(assets.image`playerImage`, SpriteKind.Player)
+let mySprite2 = sprites.create(assets.image`Map`, SpriteKind.Map)
+sprites.destroy(mySprite2)
 controller.moveSprite(mySprite)
 tilemap1 = tilemap`level1`
 tilemap2 = tilemap`level2`
@@ -323,3 +330,4 @@ tiles.setCurrentTilemap(tilemap1)
 tiles.placeOnRandomTile(mySprite, assets.tile`bed1`)
 scene.cameraFollowSprite(mySprite)
 tileUtil.connectMaps(tilemap1, tilemap2, MapConnectionKind.Door1)
+tileUtil.coverAllTiles(tileUtil.door1, sprites.dungeon.doorOpenSouth)
