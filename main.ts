@@ -3,7 +3,7 @@ namespace SpriteKind {
 }
 controller.up.onEvent(ControllerButtonEvent.Pressed, function () {
     characterAnimations.loopFrames(
-    mySprite,
+    playerSprite,
     [img`
         . . . . . . f f f f . . . . . . 
         . . . . f f e e e e f f . . . . 
@@ -77,9 +77,29 @@ controller.up.onEvent(ControllerButtonEvent.Pressed, function () {
     characterAnimations.rule(Predicate.MovingUp)
     )
 })
+controller.B.onEvent(ControllerButtonEvent.Pressed, function () {
+    if (!(pauseMenuOpen)) {
+        controller.moveSprite(playerSprite, 0, 0)
+        myMenu = miniMenu.createMenuFromArray(pauseMenu)
+        pauseMenuOpen = true
+        myMenu.setPosition(scene.cameraProperty(CameraProperty.X), scene.cameraProperty(CameraProperty.Y))
+        myMenu.setTitle("Game Paused")
+        myMenu.onButtonPressed(controller.A, function (selection, selectedIndex) {
+            if (selection == "Map") {
+                mapSprite = sprites.create(assets.image`Map`, SpriteKind.Map)
+                mapSprite.setPosition(scene.cameraProperty(CameraProperty.X), scene.cameraProperty(CameraProperty.Y))
+            }
+        })
+    } else {
+        sprites.destroy(mapSprite)
+        myMenu.close()
+        controller.moveSprite(playerSprite)
+        pauseMenuOpen = false
+    }
+})
 controller.left.onEvent(ControllerButtonEvent.Pressed, function () {
     characterAnimations.loopFrames(
-    mySprite,
+    playerSprite,
     [img`
         . . . . f f f f f f . . . . . . 
         . . . f 2 f e e e e f f . . . . 
@@ -155,18 +175,20 @@ controller.left.onEvent(ControllerButtonEvent.Pressed, function () {
 })
 scene.onOverlapTile(SpriteKind.Player, tileUtil.door1, function (sprite, location) {
     tileUtil.loadConnectedMap(MapConnectionKind.Door1)
-    tiles.placeOnRandomTile(mySprite, tileUtil.door1)
+    tiles.placeOnRandomTile(playerSprite, tileUtil.door1)
     if (tileUtil.currentTilemap() == tilemap2) {
-        mySprite.y += 16
+        scene.setBackgroundColor(7)
+        playerSprite.y += 16
         tileUtil.coverAllTiles(tileUtil.door1, sprites.dungeon.doorOpenNorth)
     } else if (tileUtil.currentTilemap() == tilemap1) {
-        mySprite.y += -16
+        scene.setBackgroundColor(12)
+        playerSprite.y += -16
         tileUtil.coverAllTiles(tileUtil.door1, sprites.dungeon.doorOpenSouth)
     }
 })
 controller.right.onEvent(ControllerButtonEvent.Pressed, function () {
     characterAnimations.loopFrames(
-    mySprite,
+    playerSprite,
     [img`
         . . . . . . f f f f f f . . . . 
         . . . . f f e e e e f 2 f . . . 
@@ -242,7 +264,7 @@ controller.right.onEvent(ControllerButtonEvent.Pressed, function () {
 })
 controller.down.onEvent(ControllerButtonEvent.Pressed, function () {
     characterAnimations.loopFrames(
-    mySprite,
+    playerSprite,
     [img`
         . . . . . . f f f f . . . . . . 
         . . . . f f f 2 2 f f f . . . . 
@@ -316,18 +338,26 @@ controller.down.onEvent(ControllerButtonEvent.Pressed, function () {
     characterAnimations.rule(Predicate.MovingDown)
     )
 })
+let mapSprite: Sprite = null
+let myMenu: miniMenu.MenuSprite = null
 let tilemap2: tiles.TileMapData = null
 let tilemap1: tiles.TileMapData = null
-let mySprite: Sprite = null
-mySprite = sprites.create(assets.image`playerImage`, SpriteKind.Player)
-let mySprite2 = sprites.create(assets.image`Map`, SpriteKind.Map)
-sprites.destroy(mySprite2)
-controller.moveSprite(mySprite)
-tilemap1 = tilemap`level1`
+let playerSprite: Sprite = null
+let pauseMenu: miniMenu.MenuItem[] = []
+let pauseMenuOpen = false
+pauseMenuOpen = false
+pauseMenu = [
+miniMenu.createMenuItem("Inventory"),
+miniMenu.createMenuItem("Map", assets.image`mapIcon`),
+miniMenu.createMenuItem("Save & Quit", assets.image`saveAndQuitIcon`)
+]
+playerSprite = sprites.create(assets.image`playerImage`, SpriteKind.Player)
+controller.moveSprite(playerSprite)
+tilemap1 = tilemap`playerHouse`
 tilemap2 = tilemap`level2`
 scene.setBackgroundColor(12)
 tiles.setCurrentTilemap(tilemap1)
-tiles.placeOnRandomTile(mySprite, assets.tile`bed1`)
-scene.cameraFollowSprite(mySprite)
+tiles.placeOnRandomTile(playerSprite, assets.tile`bed1`)
+scene.cameraFollowSprite(playerSprite)
 tileUtil.connectMaps(tilemap1, tilemap2, MapConnectionKind.Door1)
 tileUtil.coverAllTiles(tileUtil.door1, sprites.dungeon.doorOpenSouth)
