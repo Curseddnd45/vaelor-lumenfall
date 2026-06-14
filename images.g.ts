@@ -169,25 +169,6 @@ f f f f 7 e 7 7 7 f 7 e 7 7 c c
 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 
 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 
 `;
-            case "image2":
-            case "inventoryIcon":return img`
-4 4 4 . 4 4 . . 4 . 4 . 4 4 4 . 
-. 4 . . 4 . 4 . 4 . 4 . 4 4 . . 
-4 4 4 . 4 . 4 . . 4 . . 4 4 4 . 
-. . . . . . . . . . . . . . . . 
-4 4 . . 4 4 4 . 4 4 4 . 4 4 . . 
-4 . 4 . . 4 . . 4 . 4 . 4 4 . . 
-4 . 4 . . 4 . . 4 4 4 . 4 . 4 . 
-. . . . . . . . . . . . . . . . 
-4 . 4 . . . . . . . . . . . . . 
-. 4 . . . . . . . . . . . . . . 
-. 4 . . . . . . . . . . . . . . 
-. . . . . . . . . . . . . . . . 
-4 4 4 . 4 4 4 . 4 4 4 . 4 4 . . 
-. 4 . . 4 . . . 4 . 4 . 4 . 4 . 
-4 4 4 . 4 4 4 . 4 4 4 . 4 . 4 . 
-. . . . . . . . . . . . . . . . 
-`;
             case "image5":
             case "font":return img`
 ff.f..ff.ff.ff..
@@ -211,6 +192,25 @@ ff.ff.ff.ff.ff..
 ................
 ff.ff.ff.ff.ff..
 ff..f.ff..f.ff..
+`;
+            case "image2":
+            case "inventoryIcon":return img`
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . b e b b b b b . . . . 
+. . . . . e e b b e e b . . . . 
+. . . . c b b b b b e b . . . . 
+. . . . c c c c c b b b c . . . 
+. . . . c c c c c c f c b . . . 
+. . . . c c c c c c c c b . . . 
+. . . c c c c f c c c c c b . . 
+. . . c c c c c c c c c c b . . 
+. . . c f c c c c c c c c b . . 
+. . . c c e c c c c c c c b . . 
+. . . e c e c c c c c c c b . . 
+. . . c c e c c c e e c c b . . 
+. . . c c c c c c c c c c d . . 
+. . . . c f f f f c c c . . . . 
 `;
         }
         return null;
