@@ -77,6 +77,19 @@ controller.up.onEvent(ControllerButtonEvent.Pressed, function () {
     characterAnimations.rule(Predicate.MovingUp)
     )
 })
+scene.onOverlapTile(SpriteKind.Player, tileUtil.door0, function (sprite, location) {
+    tileUtil.loadConnectedMap(MapConnectionKind.Door1)
+    tiles.placeOnRandomTile(playerSprite, tileUtil.door0)
+    if (tileUtil.currentTilemap() == crossroads) {
+        scene.setBackgroundColor(7)
+        playerSprite.y += 16
+        tileUtil.coverAllTiles(tileUtil.door0, sprites.dungeon.doorOpenNorth)
+    } else if (tileUtil.currentTilemap() == playerHouse) {
+        scene.setBackgroundColor(12)
+        playerSprite.y += -16
+        tileUtil.coverAllTiles(tileUtil.door0, sprites.dungeon.doorOpenSouth)
+    }
+})
 controller.B.onEvent(ControllerButtonEvent.Pressed, function () {
     if (!(pauseMenuOpen)) {
         controller.moveSprite(playerSprite, 0, 0)
@@ -172,19 +185,6 @@ controller.left.onEvent(ControllerButtonEvent.Pressed, function () {
     250,
     characterAnimations.rule(Predicate.MovingLeft)
     )
-})
-scene.onOverlapTile(SpriteKind.Player, tileUtil.door1, function (sprite, location) {
-    tileUtil.loadConnectedMap(MapConnectionKind.Door1)
-    tiles.placeOnRandomTile(playerSprite, tileUtil.door1)
-    if (tileUtil.currentTilemap() == tilemap2) {
-        scene.setBackgroundColor(7)
-        playerSprite.y += 16
-        tileUtil.coverAllTiles(tileUtil.door1, sprites.dungeon.doorOpenNorth)
-    } else if (tileUtil.currentTilemap() == tilemap1) {
-        scene.setBackgroundColor(12)
-        playerSprite.y += -16
-        tileUtil.coverAllTiles(tileUtil.door1, sprites.dungeon.doorOpenSouth)
-    }
 })
 controller.right.onEvent(ControllerButtonEvent.Pressed, function () {
     characterAnimations.loopFrames(
@@ -340,8 +340,8 @@ controller.down.onEvent(ControllerButtonEvent.Pressed, function () {
 })
 let mapSprite: Sprite = null
 let myMenu: miniMenu.MenuSprite = null
-let tilemap2: tiles.TileMapData = null
-let tilemap1: tiles.TileMapData = null
+let crossroads: tiles.TileMapData = null
+let playerHouse: tiles.TileMapData = null
 let playerSprite: Sprite = null
 let pauseMenu: miniMenu.MenuItem[] = []
 let pauseMenuOpen = false
@@ -353,11 +353,15 @@ miniMenu.createMenuItem("Save & Quit", assets.image`saveAndQuitIcon`)
 ]
 playerSprite = sprites.create(assets.image`playerImage`, SpriteKind.Player)
 controller.moveSprite(playerSprite)
-tilemap1 = tilemap`playerHouse`
-tilemap2 = tilemap`level2`
+playerHouse = tilemap`playerHouse`
+crossroads = tilemap`crossroads`
+let tilemap3 = tilemap`level12`
 scene.setBackgroundColor(12)
-tiles.setCurrentTilemap(tilemap1)
+tiles.setCurrentTilemap(playerHouse)
 tiles.placeOnRandomTile(playerSprite, assets.tile`bed1`)
 scene.cameraFollowSprite(playerSprite)
-tileUtil.connectMaps(tilemap1, tilemap2, MapConnectionKind.Door1)
-tileUtil.coverAllTiles(tileUtil.door1, sprites.dungeon.doorOpenSouth)
+tileUtil.connectMaps(playerHouse, crossroads, MapConnectionKind.Door1)
+tileUtil.coverAllTiles(tileUtil.door0, sprites.dungeon.doorOpenSouth)
+forever(function () {
+	
+})

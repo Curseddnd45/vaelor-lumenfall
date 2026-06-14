@@ -22,25 +22,6 @@ namespace myImages {
 . . . . . f f f f f f . . . . . 
 . . . . . f f . . f f . . . . . 
 `;
-            case "image2":
-            case "myImage":return img`
-. . . . . . . . . . . . . . . . 
-. . . . . . . . . . . . . . . . 
-. . . f f f . . . . . . . . . . 
-. . f f 7 f f . . . . . . . . . 
-. f f 7 e 7 f f . . . . . . . . 
-. f 7 f e f 7 f . . . . . . . . 
-. f f f 7 f f f . . . . . . . . 
-. f f 7 e 7 f f . . . . . . . . 
-. f 7 f e f 7 f . . . . . . . . 
-. f f f 7 f f f . . . . . . . . 
-. f f 7 e 7 f f . . . . . . . . 
-. f 7 f e f 7 f . . . . . . . . 
-. f f f e f f f . . . . . . . . 
-. . . f f f . . . . . . . . . . 
-. . . . . . . . . . . . . . . . 
-. . . . . . . . . . . . . . . . 
-`;
             case "image1":
             case "Map":return img`
 fffffffffffffffffffffffeefeeeeffffffeeeeeffffcfeeeeffeeffffeffeecffffffeeecfffffefffeeeeeefeefffffecffffeeeecfffcfffffffffffeffffeefceefffffffefffffeeffffffffff
@@ -187,6 +168,49 @@ f f f f 7 e 7 7 7 f 7 e 7 7 c c
 7 7 7 1 1 1 1 1 1 1 7 1 7 7 7 7 
 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 
 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 
+`;
+            case "image2":
+            case "inventoryIcon":return img`
+4 4 4 . 4 4 . . 4 . 4 . 4 4 4 . 
+. 4 . . 4 . 4 . 4 . 4 . 4 4 . . 
+4 4 4 . 4 . 4 . . 4 . . 4 4 4 . 
+. . . . . . . . . . . . . . . . 
+4 4 . . 4 4 4 . 4 4 4 . 4 4 . . 
+4 . 4 . . 4 . . 4 . 4 . 4 4 . . 
+4 . 4 . . 4 . . 4 4 4 . 4 . 4 . 
+. . . . . . . . . . . . . . . . 
+4 . 4 . . . . . . . . . . . . . 
+. 4 . . . . . . . . . . . . . . 
+. 4 . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+4 4 4 . 4 4 4 . 4 4 4 . 4 4 . . 
+. 4 . . 4 . . . 4 . 4 . 4 . 4 . 
+4 4 4 . 4 4 4 . 4 4 4 . 4 . 4 . 
+. . . . . . . . . . . . . . . . 
+`;
+            case "image5":
+            case "font":return img`
+ff.f..ff.ff.ff..
+ff.ff.ff.ff.f...
+................
+ff.f..f.ff.f..ff
+ff.f.ff.ff.ff.ff
+................
+ff.ff.ff.ff.ff..
+ff.ff.f...f.f...
+................
+ff.ff.ff.ff.ff..
+ff.ff.ff.ff.ff..
+................
+ff.ff.ff........
+ff.ff.ff........
+................
+................
+ff.ff.ff.ff.ff..
+.f.ff.ff.ff.ff..
+................
+ff.ff.ff.ff.ff..
+ff..f.ff..f.ff..
 `;
         }
         return null;
