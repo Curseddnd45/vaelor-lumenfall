@@ -443,13 +443,13 @@ tileUtil.connectMaps(playerHouse, crossroads, MapConnectionKind.Door1)
 tileUtil.coverAllTiles(tileUtil.door0, sprites.dungeon.doorOpenSouth)
 forever(function () {
     if ((playerSprite.isHittingTile(CollisionDirection.Left) || playerSprite.isHittingTile(CollisionDirection.Top) || playerSprite.isHittingTile(CollisionDirection.Right) || playerSprite.isHittingTile(CollisionDirection.Bottom)) && controller.A.isPressed()) {
-        if (tileAroundSpriteIs(assets.tile`baseTransparency16`, playerSprite)) {
+        if (tileAroundSpriteIs(assets.tile`‘To Volcano’`, playerSprite)) {
             story.printCharacterText("'To Volcano'", "Sign")
         }
-        if (tileAroundSpriteIs(assets.tile`baseTransparency16`, playerSprite)) {
+        if (tileAroundSpriteIs(assets.tile`‘To Ocean’`, playerSprite)) {
             story.printCharacterText("'To Ocean'", "Sign")
         }
-        if (tileAroundSpriteIs(assets.tile`baseTransparency16`, playerSprite)) {
+        if (tileAroundSpriteIs(assets.tile`‘To Mountain’`, playerSprite)) {
             story.printCharacterText("'To Mountain'", "Sign")
         }
     }
