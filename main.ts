@@ -1,5 +1,6 @@
 namespace SpriteKind {
     export const Map = SpriteKind.create()
+    export const Tree = SpriteKind.create()
 }
 controller.up.onEvent(ControllerButtonEvent.Pressed, function () {
     playerSprite.setImage(img`
@@ -102,6 +103,7 @@ scene.onOverlapTile(SpriteKind.Player, tileUtil.door0, function (sprite, locatio
         scene.setBackgroundColor(7)
         playerSprite.y += 16
         tileUtil.coverAllTiles(tileUtil.door0, sprites.dungeon.doorOpenNorth)
+        tileUtil.coverAllTiles(tileUtil.door1, sprites.castle.tilePath5)
     } else if (tileUtil.currentTilemap() == playerHouse) {
         scene.setBackgroundColor(12)
         playerSprite.y += -16
@@ -227,6 +229,75 @@ controller.left.onEvent(ControllerButtonEvent.Pressed, function () {
     250,
     characterAnimations.rule(Predicate.MovingLeft)
     )
+})
+scene.onOverlapTile(SpriteKind.Player, tileUtil.door1, function (sprite, location) {
+    tileUtil.loadConnectedMap(MapConnectionKind.Door2)
+    tiles.placeOnRandomTile(playerSprite, tileUtil.door1)
+    if (tileUtil.currentTilemap() == crossroads) {
+        scene.setBackgroundColor(7)
+        playerSprite.y += -16
+        tileUtil.coverAllTiles(tileUtil.door0, sprites.dungeon.doorOpenNorth)
+        tileUtil.coverAllTiles(tileUtil.door1, sprites.castle.tilePath5)
+        sprites.destroyAllSpritesOfKind(SpriteKind.Tree)
+    } else if (tileUtil.currentTilemap() == oceanForest) {
+        scene.setBackgroundColor(7)
+        playerSprite.y += 16
+        tileUtil.coverAllTiles(tileUtil.door1, sprites.castle.tilePath5)
+        tileUtil.createSpritesOnTiles(sprites.builtin.forestTiles22, img`
+            6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 
+            7 7 7 7 7 6 6 6 7 7 7 7 7 6 6 6 
+            7 7 7 7 7 7 6 7 7 7 7 7 7 7 6 7 
+            7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 
+            7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 
+            7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 
+            7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 
+            7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 
+            7 6 7 7 7 7 6 7 7 7 7 7 6 7 7 7 
+            7 7 6 7 7 6 7 7 7 6 7 7 6 7 6 7 
+            7 7 6 7 6 6 7 7 6 6 6 7 6 6 6 6 
+            6 7 6 6 6 6 7 6 6 6 6 6 8 6 6 6 
+            8 8 6 6 8 6 6 6 8 6 6 6 8 8 6 6 
+            8 e 6 e e 8 6 6 8 8 6 8 8 8 e 8 
+            8 e e e e e 6 f 8 8 e e 8 e e f 
+            f e e e e f 8 f f 8 e e e e f f 
+            `, SpriteKind.Tree)
+        tileUtil.createSpritesOnTiles(sprites.builtin.forestTiles21, img`
+            . . . 6 6 6 6 6 6 6 6 6 6 6 6 6 
+            . 6 6 7 7 6 6 6 7 7 7 7 7 6 6 6 
+            . 6 7 7 7 7 6 7 7 7 7 7 7 7 6 7 
+            6 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 
+            6 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 
+            6 7 6 7 7 7 7 7 7 7 7 7 7 7 7 7 
+            8 6 7 7 7 7 7 7 7 7 7 7 7 7 7 7 
+            8 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 
+            6 7 6 7 7 7 6 7 7 7 7 7 6 7 7 7 
+            6 8 6 7 7 6 7 7 7 6 7 7 6 7 6 7 
+            8 6 6 7 6 6 7 7 6 6 6 7 6 6 6 6 
+            8 6 8 6 6 6 7 6 6 6 6 6 8 6 6 6 
+            8 8 6 6 8 6 6 6 8 6 6 6 8 8 6 6 
+            . f 6 f f 8 6 6 8 8 6 8 8 8 f 8 
+            . . f f f f 6 e 8 8 e e 8 f f f 
+            . . . f f f f f e 8 e e f f f f 
+            `, SpriteKind.Tree)
+        tileUtil.createSpritesOnTiles(sprites.builtin.forestTiles23, img`
+            6 6 6 6 6 6 6 6 6 6 6 6 6 . . . 
+            7 7 7 7 7 6 6 6 7 7 7 7 7 6 6 . 
+            7 7 7 7 7 7 6 7 7 7 7 7 7 7 6 . 
+            7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 6 
+            7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 6 
+            7 7 7 7 7 7 7 7 7 7 7 7 7 6 7 6 
+            7 7 7 7 7 7 7 7 7 7 7 7 7 7 6 8 
+            7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 8 
+            7 6 7 7 7 7 6 7 7 7 7 6 7 7 7 6 
+            7 7 6 7 7 6 7 7 7 6 7 7 6 6 8 6 
+            7 7 6 7 6 6 7 7 6 6 6 7 6 6 6 8 
+            6 7 6 6 6 6 7 6 6 6 6 6 8 6 6 8 
+            8 8 6 6 8 6 6 6 8 6 6 6 8 8 8 8 
+            8 e 6 e e 8 6 6 8 8 6 8 8 8 f . 
+            8 e e e e e 6 e 8 8 f f 8 f . . 
+            f e e e e f 8 e e f f f f . . . 
+            `, SpriteKind.Tree)
+    }
 })
 controller.right.onEvent(ControllerButtonEvent.Pressed, function () {
     playerSprite.setImage(img`
@@ -421,6 +492,7 @@ function tileAroundSpriteIs (tile: Image, sprite: Sprite) {
 }
 let mapSprite: Sprite = null
 let myMenu: miniMenu.MenuSprite = null
+let oceanForest: tiles.TileMapData = null
 let crossroads: tiles.TileMapData = null
 let playerHouse: tiles.TileMapData = null
 let playerSprite: Sprite = null
@@ -431,15 +503,16 @@ mapOpen = false
 pauseMenuOpen = false
 pauseMenu = [miniMenu.createMenuItem("Inventory", assets.image`inventoryIcon`), miniMenu.createMenuItem("Map", assets.image`mapIcon`), miniMenu.createMenuItem("Save & Quit", assets.image`saveAndQuitIcon`)]
 playerSprite = sprites.create(assets.image`playerImage`, SpriteKind.Player)
-controller.moveSprite(playerSprite, 100, 100)
+controller.moveSprite(playerSprite)
 playerHouse = tilemap`playerHouse`
 crossroads = tilemap`crossroads`
-let tilemap3 = tilemap`level12`
+oceanForest = tilemap`level6`
 scene.setBackgroundColor(12)
 tiles.setCurrentTilemap(playerHouse)
 tiles.placeOnRandomTile(playerSprite, assets.tile`bed1`)
 scene.cameraFollowSprite(playerSprite)
 tileUtil.connectMaps(playerHouse, crossroads, MapConnectionKind.Door1)
+tileUtil.connectMaps(crossroads, oceanForest, MapConnectionKind.Door2)
 tileUtil.coverAllTiles(tileUtil.door0, sprites.dungeon.doorOpenSouth)
 forever(function () {
     if ((playerSprite.isHittingTile(CollisionDirection.Left) || playerSprite.isHittingTile(CollisionDirection.Top) || playerSprite.isHittingTile(CollisionDirection.Right) || playerSprite.isHittingTile(CollisionDirection.Bottom)) && controller.A.isPressed()) {
