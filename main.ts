@@ -23,75 +23,7 @@ controller.up.onEvent(ControllerButtonEvent.Pressed, function () {
         `)
     characterAnimations.loopFrames(
     playerSprite,
-    [img`
-        . . . . . . f f f f . . . . . . 
-        . . . . f f e e e e f f . . . . 
-        . . . f e e e f f e e e f . . . 
-        . . f f f f f 2 2 f f f f f . . 
-        . . f f e 2 e 2 2 e 2 e f f . . 
-        . . f e 2 f 2 f f 2 f 2 e f . . 
-        . . f f f 2 2 e e 2 2 f f f . . 
-        . f f e f 2 f e e f 2 f e f f . 
-        . f e e f f e e e e f e e e f . 
-        . . f e e e e e e e e e e f . . 
-        . . . f e e e e e e e e f . . . 
-        . . e 4 f f f f f f f f 4 e . . 
-        . . 4 d f 2 2 2 2 2 2 f d 4 . . 
-        . . 4 4 f 4 4 4 4 4 4 f 4 4 . . 
-        . . . . . f f f f f f . . . . . 
-        . . . . . f f . . f f . . . . . 
-        `,img`
-        . . . . . . . . . . . . . . . . 
-        . . . . . . f f f f . . . . . . 
-        . . . . f f e e e e f f . . . . 
-        . . . f e e e f f e e e f . . . 
-        . . . f f f f 2 2 f f f f . . . 
-        . . f f e 2 e 2 2 e 2 e f f . . 
-        . . f e 2 f 2 f f f 2 f e f . . 
-        . . f f f 2 f e e 2 2 f f f . . 
-        . . f e 2 f f e e 2 f e e f . . 
-        . f f e f f e e e f e e e f f . 
-        . f f e e e e e e e e e e f f . 
-        . . . f e e e e e e e e f . . . 
-        . . . e f f f f f f f f 4 e . . 
-        . . . 4 f 2 2 2 2 2 e d d 4 . . 
-        . . . e f f f f f f e e 4 . . . 
-        . . . . f f f . . . . . . . . . 
-        `,img`
-        . . . . . . f f f f . . . . . . 
-        . . . . f f e e e e f f . . . . 
-        . . . f e e e f f e e e f . . . 
-        . . f f f f f 2 2 f f f f f . . 
-        . . f f e 2 e 2 2 e 2 e f f . . 
-        . . f e 2 f 2 f f 2 f 2 e f . . 
-        . . f f f 2 2 e e 2 2 f f f . . 
-        . f f e f 2 f e e f 2 f e f f . 
-        . f e e f f e e e e f e e e f . 
-        . . f e e e e e e e e e e f . . 
-        . . . f e e e e e e e e f . . . 
-        . . e 4 f f f f f f f f 4 e . . 
-        . . 4 d f 2 2 2 2 2 2 f d 4 . . 
-        . . 4 4 f 4 4 4 4 4 4 f 4 4 . . 
-        . . . . . f f f f f f . . . . . 
-        . . . . . f f . . f f . . . . . 
-        `,img`
-        . . . . . . . . . . . . . . . . 
-        . . . . . . f f f f . . . . . . 
-        . . . . f f e e e e f f . . . . 
-        . . . f e e e f f e e e f . . . 
-        . . . f f f f 2 2 f f f f . . . 
-        . . f f e 2 e 2 2 e 2 e f f . . 
-        . . f e f 2 f f f 2 f 2 e f . . 
-        . . f f f 2 2 e e f 2 f f f . . 
-        . . f e e f 2 e e f f 2 e f . . 
-        . f f e e e f e e e f f e f f . 
-        . f f e e e e e e e e e e f f . 
-        . . . f e e e e e e e e f . . . 
-        . . e 4 f f f f f f f f e . . . 
-        . . 4 d d e 2 2 2 2 2 f 4 . . . 
-        . . . 4 e e f f f f f f e . . . 
-        . . . . . . . . . f f f . . . . 
-        `],
+    playerAnimUp,
     250,
     characterAnimations.rule(Predicate.MovingUp)
     )
@@ -157,75 +89,7 @@ controller.left.onEvent(ControllerButtonEvent.Pressed, function () {
         `)
     characterAnimations.loopFrames(
     playerSprite,
-    [img`
-        . . . . f f f f f f . . . . . . 
-        . . . f 2 f e e e e f f . . . . 
-        . . f 2 2 2 f e e e e f f . . . 
-        . . f e e e e f f e e e f . . . 
-        . f e 2 2 2 2 e e f f f f . . . 
-        . f 2 e f f f f 2 2 2 e f . . . 
-        . f f f e e e f f f f f f f . . 
-        . f e e 4 4 f b e 4 4 e f f . . 
-        . . f e d d f 1 4 d 4 e e f . . 
-        . . . f d d d d 4 e e e f . . . 
-        . . . f e 4 4 4 e e f f . . . . 
-        . . . f 2 2 2 e d d 4 . . . . . 
-        . . . f 2 2 2 e d d e . . . . . 
-        . . . f 5 5 4 f e e f . . . . . 
-        . . . . f f f f f f . . . . . . 
-        . . . . . . f f f . . . . . . . 
-        `,img`
-        . . . . . . . . . . . . . . . . 
-        . . . . f f f f f f . . . . . . 
-        . . . f 2 f e e e e f f . . . . 
-        . . f 2 2 2 f e e e e f f . . . 
-        . . f e e e e f f e e e f . . . 
-        . f e 2 2 2 2 e e f f f f . . . 
-        . f 2 e f f f f 2 2 2 e f . . . 
-        . f f f e e e f f f f f f f . . 
-        . f e e 4 4 f b e 4 4 e f f . . 
-        . . f e d d f 1 4 d 4 e e f . . 
-        . . . f d d d e e e e e f . . . 
-        . . . f e 4 e d d 4 f . . . . . 
-        . . . f 2 2 e d d e f . . . . . 
-        . . f f 5 5 f e e f f f . . . . 
-        . . f f f f f f f f f f . . . . 
-        . . . f f f . . . f f . . . . . 
-        `,img`
-        . . . . f f f f f f . . . . . . 
-        . . . f 2 f e e e e f f . . . . 
-        . . f 2 2 2 f e e e e f f . . . 
-        . . f e e e e f f e e e f . . . 
-        . f e 2 2 2 2 e e f f f f . . . 
-        . f 2 e f f f f 2 2 2 e f . . . 
-        . f f f e e e f f f f f f f . . 
-        . f e e 4 4 f b e 4 4 e f f . . 
-        . . f e d d f 1 4 d 4 e e f . . 
-        . . . f d d d d 4 e e e f . . . 
-        . . . f e 4 4 4 e e f f . . . . 
-        . . . f 2 2 2 e d d 4 . . . . . 
-        . . . f 2 2 2 e d d e . . . . . 
-        . . . f 5 5 4 f e e f . . . . . 
-        . . . . f f f f f f . . . . . . 
-        . . . . . . f f f . . . . . . . 
-        `,img`
-        . . . . . . . . . . . . . . . . 
-        . . . . f f f f f f . . . . . . 
-        . . . f 2 f e e e e f f . . . . 
-        . . f 2 2 2 f e e e e f f . . . 
-        . . f e e e e f f e e e f . . . 
-        . f e 2 2 2 2 e e f f f f . . . 
-        . f 2 e f f f f 2 2 2 e f . . . 
-        . f f f e e e f f f f f f f . . 
-        . f e e 4 4 f b e 4 4 e f f . . 
-        . . f e d d f 1 4 d 4 e e f . . 
-        . . . f d d d d 4 e e e f . . . 
-        . . . f e 4 4 4 e d d 4 . . . . 
-        . . . f 2 2 2 2 e d d e . . . . 
-        . . f f 5 5 4 4 f e e f . . . . 
-        . . f f f f f f f f f f . . . . 
-        . . . f f f . . . f f . . . . . 
-        `],
+    playerAnimLeft,
     250,
     characterAnimations.rule(Predicate.MovingLeft)
     )
@@ -258,8 +122,8 @@ scene.onOverlapTile(SpriteKind.Player, tileUtil.door1, function (sprite, locatio
             6 7 6 6 6 6 7 6 6 6 6 6 8 6 6 6 
             8 8 6 6 8 6 6 6 8 6 6 6 8 8 6 6 
             8 e 6 e e 8 6 6 8 8 6 8 8 8 e 8 
-            8 e e e e e 6 f 8 8 e e 8 e e f 
-            f e e e e f 8 f f 8 e e e e f f 
+            8 e e e e e 6 . 8 8 e e 8 e e . 
+            . e e e e . 8 . . 8 e e e e . . 
             `, SpriteKind.Tree)
         tileUtil.createSpritesOnTiles(sprites.builtin.forestTiles21, img`
             . . . 6 6 6 6 6 6 6 6 6 6 6 6 6 
@@ -275,9 +139,9 @@ scene.onOverlapTile(SpriteKind.Player, tileUtil.door1, function (sprite, locatio
             8 6 6 7 6 6 7 7 6 6 6 7 6 6 6 6 
             8 6 8 6 6 6 7 6 6 6 6 6 8 6 6 6 
             8 8 6 6 8 6 6 6 8 6 6 6 8 8 6 6 
-            . f 6 f f 8 6 6 8 8 6 8 8 8 f 8 
-            . . f f f f 6 e 8 8 e e 8 f f f 
-            . . . f f f f f e 8 e e f f f f 
+            . . 6 . . 8 6 6 8 8 6 8 8 8 . 8 
+            . . . . . . 6 e 8 8 e e 8 . . . 
+            . . . . . . . . e 8 e e . . . . 
             `, SpriteKind.Tree)
         tileUtil.createSpritesOnTiles(sprites.builtin.forestTiles23, img`
             6 6 6 6 6 6 6 6 6 6 6 6 6 . . . 
@@ -293,9 +157,9 @@ scene.onOverlapTile(SpriteKind.Player, tileUtil.door1, function (sprite, locatio
             7 7 6 7 6 6 7 7 6 6 6 7 6 6 6 8 
             6 7 6 6 6 6 7 6 6 6 6 6 8 6 6 8 
             8 8 6 6 8 6 6 6 8 6 6 6 8 8 8 8 
-            8 e 6 e e 8 6 6 8 8 6 8 8 8 f . 
-            8 e e e e e 6 e 8 8 f f 8 f . . 
-            f e e e e f 8 e e f f f f . . . 
+            8 e 6 e e 8 6 6 8 8 6 8 8 8 . . 
+            8 e e e e e 6 e 8 8 . . 8 . . . 
+            . e e e e . 8 e e . . . . . . . 
             `, SpriteKind.Tree)
     }
 })
@@ -320,75 +184,7 @@ controller.right.onEvent(ControllerButtonEvent.Pressed, function () {
         `)
     characterAnimations.loopFrames(
     playerSprite,
-    [img`
-        . . . . . . f f f f f f . . . . 
-        . . . . f f e e e e f 2 f . . . 
-        . . . f f e e e e f 2 2 2 f . . 
-        . . . f e e e f f e e e e f . . 
-        . . . f f f f e e 2 2 2 2 e f . 
-        . . . f e 2 2 2 f f f f e 2 f . 
-        . . f f f f f f f e e e f f f . 
-        . . f f e 4 4 e b f 4 4 e e f . 
-        . . f e e 4 d 4 1 f d d e f . . 
-        . . . f e e e 4 d d d d f . . . 
-        . . . . f f e e 4 4 4 e f . . . 
-        . . . . . 4 d d e 2 2 2 f . . . 
-        . . . . . e d d e 2 2 2 f . . . 
-        . . . . . f e e f 4 5 5 f . . . 
-        . . . . . . f f f f f f . . . . 
-        . . . . . . . f f f . . . . . . 
-        `,img`
-        . . . . . . . . . . . . . . . . 
-        . . . . . . f f f f f f . . . . 
-        . . . . f f e e e e f 2 f . . . 
-        . . . f f e e e e f 2 2 2 f . . 
-        . . . f e e e f f e e e e f . . 
-        . . . f f f f e e 2 2 2 2 e f . 
-        . . . f e 2 2 2 f f f f e 2 f . 
-        . . f f f f f f f e e e f f f . 
-        . . f f e 4 4 e b f 4 4 e e f . 
-        . . f e e 4 d 4 1 f d d e f . . 
-        . . . f e e e e e d d d f . . . 
-        . . . . . f 4 d d e 4 e f . . . 
-        . . . . . f e d d e 2 2 f . . . 
-        . . . . f f f e e f 5 5 f f . . 
-        . . . . f f f f f f f f f f . . 
-        . . . . . f f . . . f f f . . . 
-        `,img`
-        . . . . . . f f f f f f . . . . 
-        . . . . f f e e e e f 2 f . . . 
-        . . . f f e e e e f 2 2 2 f . . 
-        . . . f e e e f f e e e e f . . 
-        . . . f f f f e e 2 2 2 2 e f . 
-        . . . f e 2 2 2 f f f f e 2 f . 
-        . . f f f f f f f e e e f f f . 
-        . . f f e 4 4 e b f 4 4 e e f . 
-        . . f e e 4 d 4 1 f d d e f . . 
-        . . . f e e e 4 d d d d f . . . 
-        . . . . f f e e 4 4 4 e f . . . 
-        . . . . . 4 d d e 2 2 2 f . . . 
-        . . . . . e d d e 2 2 2 f . . . 
-        . . . . . f e e f 4 5 5 f . . . 
-        . . . . . . f f f f f f . . . . 
-        . . . . . . . f f f . . . . . . 
-        `,img`
-        . . . . . . . . . . . . . . . . 
-        . . . . . . f f f f f f . . . . 
-        . . . . f f e e e e f 2 f . . . 
-        . . . f f e e e e f 2 2 2 f . . 
-        . . . f e e e f f e e e e f . . 
-        . . . f f f f e e 2 2 2 2 e f . 
-        . . . f e 2 2 2 f f f f e 2 f . 
-        . . f f f f f f f e e e f f f . 
-        . . f f e 4 4 e b f 4 4 e e f . 
-        . . f e e 4 d 4 1 f d d e f . . 
-        . . . f e e e 4 d d d d f . . . 
-        . . . . 4 d d e 4 4 4 e f . . . 
-        . . . . e d d e 2 2 2 2 f . . . 
-        . . . . f e e f 4 4 5 5 f f . . 
-        . . . . f f f f f f f f f f . . 
-        . . . . . f f . . . f f f . . . 
-        `],
+    playerAnimRight,
     250,
     characterAnimations.rule(Predicate.MovingRight)
     )
@@ -414,75 +210,7 @@ controller.down.onEvent(ControllerButtonEvent.Pressed, function () {
         `)
     characterAnimations.loopFrames(
     playerSprite,
-    [img`
-        . . . . . . f f f f . . . . . . 
-        . . . . f f f 2 2 f f f . . . . 
-        . . . f f f 2 2 2 2 f f f . . . 
-        . . f f f e e e e e e f f f . . 
-        . . f f e 2 2 2 2 2 2 e e f . . 
-        . . f e 2 f f f f f f 2 e f . . 
-        . . f f f f e e e e f f f f . . 
-        . f f e f b f 4 4 f b f e f f . 
-        . f e e 4 1 f d d f 1 4 e e f . 
-        . . f e e d d d d d d e e f . . 
-        . . . f e e 4 4 4 4 e e f . . . 
-        . . e 4 f 2 2 2 2 2 2 f 4 e . . 
-        . . 4 d f 2 2 2 2 2 2 f d 4 . . 
-        . . 4 4 f 4 4 5 5 4 4 f 4 4 . . 
-        . . . . . f f f f f f . . . . . 
-        . . . . . f f . . f f . . . . . 
-        `,img`
-        . . . . . . . . . . . . . . . . 
-        . . . . . . f f f f . . . . . . 
-        . . . . f f f 2 2 f f f . . . . 
-        . . . f f f 2 2 2 2 f f f . . . 
-        . . f f f e e e e e e f f f . . 
-        . . f f e 2 2 2 2 2 2 e e f . . 
-        . f f e 2 f f f f f f 2 e f f . 
-        . f f f f f e e e e f f f f f . 
-        . . f e f b f 4 4 f b f e f . . 
-        . . f e 4 1 f d d f 1 4 e f . . 
-        . . . f e 4 d d d d 4 e f e . . 
-        . . f e f 2 2 2 2 e d d 4 e . . 
-        . . e 4 f 2 2 2 2 e d d e . . . 
-        . . . . f 4 4 5 5 f e e . . . . 
-        . . . . f f f f f f f . . . . . 
-        . . . . f f f . . . . . . . . . 
-        `,img`
-        . . . . . . f f f f . . . . . . 
-        . . . . f f f 2 2 f f f . . . . 
-        . . . f f f 2 2 2 2 f f f . . . 
-        . . f f f e e e e e e f f f . . 
-        . . f f e 2 2 2 2 2 2 e e f . . 
-        . . f e 2 f f f f f f 2 e f . . 
-        . . f f f f e e e e f f f f . . 
-        . f f e f b f 4 4 f b f e f f . 
-        . f e e 4 1 f d d f 1 4 e e f . 
-        . . f e e d d d d d d e e f . . 
-        . . . f e e 4 4 4 4 e e f . . . 
-        . . e 4 f 2 2 2 2 2 2 f 4 e . . 
-        . . 4 d f 2 2 2 2 2 2 f d 4 . . 
-        . . 4 4 f 4 4 5 5 4 4 f 4 4 . . 
-        . . . . . f f f f f f . . . . . 
-        . . . . . f f . . f f . . . . . 
-        `,img`
-        . . . . . . . . . . . . . . . . 
-        . . . . . . f f f f . . . . . . 
-        . . . . f f f 2 2 f f f . . . . 
-        . . . f f f 2 2 2 2 f f f . . . 
-        . . f f f e e e e e e f f f . . 
-        . . f e e 2 2 2 2 2 2 e f f . . 
-        . f f e 2 f f f f f f 2 e f f . 
-        . f f f f f e e e e f f f f f . 
-        . . f e f b f 4 4 f b f e f . . 
-        . . f e 4 1 f d d f 1 4 e f . . 
-        . . e f e 4 d d d d 4 e f . . . 
-        . . e 4 d d e 2 2 2 2 f e f . . 
-        . . . e d d e 2 2 2 2 f 4 e . . 
-        . . . . e e f 5 5 4 4 f . . . . 
-        . . . . . f f f f f f f . . . . 
-        . . . . . . . . . f f f . . . . 
-        `],
+    playerAnimDown,
     250,
     characterAnimations.rule(Predicate.MovingDown)
     )
@@ -490,11 +218,92 @@ controller.down.onEvent(ControllerButtonEvent.Pressed, function () {
 function tileAroundSpriteIs (tile: Image, sprite: Sprite) {
     return sprite.tileKindAt(TileDirection.Bottom, tile) || sprite.tileKindAt(TileDirection.Right, tile) || sprite.tileKindAt(TileDirection.Top, tile) || sprite.tileKindAt(TileDirection.Left, tile)
 }
+sprites.onOverlap(SpriteKind.Player, SpriteKind.Tree, function (sprite, otherSprite) {
+    if (sprite.overlapsWith(otherSprite)) {
+        sprite.z = otherSprite.z + 1
+        playerAnimLeft = [img`
+            . . . . f 1 f 1 f 1 . . . . . . 
+            . . . 1 . . . . . . f 1 . . . . 
+            . . f . . . . . . . . . f . . . 
+            . . 1 . . . . . . . . . 1 . . . 
+            . f . . . . . . . . . . f . . . 
+            . 1 . . . . . . . . . . 1 . . . 
+            . f . . . . . . . . . . . f 1 . 
+            . 1 . . . . . . . . . . . 1 . . 
+            . . f . . . . . . . . . . f . . 
+            . . . 1 . . . . . . . . 1 . . . 
+            . . . f . . . . . . 1 f . . . . 
+            . . . 1 . . . . . . f . . . . . 
+            . . . f . . . . . . 1 . . . . . 
+            . . . 1 . . . . . . f . . . . . 
+            . . . . f 1 . . . 1 . . . . . . 
+            . . . . . . f 1 f . . . . . . . 
+            `,img`
+            . . . . . . . . . . . . . . . . 
+            . . . . f 1 f 1 f 1 . . . . . . 
+            . . . 1 . . . . . . f 1 . . . . 
+            . . f . . . . . . . . . f . . . 
+            . . 1 . . . . . . . . . 1 . . . 
+            . f . . . . . . . . . . f . . . 
+            . 1 . . . . . . . . . . 1 . . . 
+            . f . . . . . . . . . . . f . . 
+            . 1 . . . . . . . . . . . 1 . . 
+            . . f . . . . . . . . . . f . . 
+            . . . 1 . . . . . . . f 1 . . . 
+            . . . f . . . . . . 1 . . . . . 
+            . . . 1 . . . . . . f . . . . . 
+            . . f . . . . . . . . 1 . . . . 
+            . . 1 . . . 1 f 1 . . f . . . . 
+            . . . f 1 f . . . f 1 . . . . . 
+            `,img`
+            . . . . f 1 f 1 f 1 . . . . . . 
+            . . . 1 . . . . . . f 1 . . . . 
+            . . f . . . . . . . . . f . . . 
+            . . 1 . . . . . . . . . 1 . . . 
+            . f . . . . . . . . . . f . . . 
+            . 1 . . . . . . . . . . 1 . . . 
+            . f . . . . . . . . . . . f . . 
+            . 1 . . . . . . . . . . . 1 . . 
+            . . f . . . . . . . . . . f . . 
+            . . . 1 . . . . . . . . 1 . . . 
+            . . . f . . . . . . 1 f . . . . 
+            . . . 1 . . . . . . f . . . . . 
+            . . . f . . . . . . 1 . . . . . 
+            . . . 1 . . . . . . f . . . . . 
+            . . . . f 1 . . . 1 . . . . . . 
+            . . . . . . f 1 f . . . . . . . 
+            `,img`
+            . . . . . . . . . . . . . . . . 
+            . . . . f 1 f 1 f 1 . . . . . . 
+            . . . 1 . . . . . . f 1 . . . . 
+            . . f . . . . . . . . . f . . . 
+            . . 1 . . . . . . . . . 1 . . . 
+            . f . . . . . . . . . . f . . . 
+            . 1 . . . . . . . . . . 1 . . . 
+            . f . . . . . . . . . . . f . . 
+            . 1 . . . . . . . . . . . 1 . . 
+            . . f . . . . . . . . . . f . . 
+            . . . 1 . . . . . . . f 1 . . . 
+            . . . f . . . . . . 1 . . . . . 
+            . . . 1 . . . . . . f . . . . . 
+            . . f . . . . . . . . 1 . . . . 
+            . . 1 . . . 1 f 1 . . f . . . . 
+            . . . f 1 f . . . f 1 . . . . . 
+            `]
+        playerAnimRight = assets.animation`normalRight`
+        playerAnimUp = assets.animation`normalUp`
+        playerAnimDown = assets.animation`normalDown`
+    }
+})
 let mapSprite: Sprite = null
 let myMenu: miniMenu.MenuSprite = null
 let oceanForest: tiles.TileMapData = null
 let crossroads: tiles.TileMapData = null
 let playerHouse: tiles.TileMapData = null
+let playerAnimDown: Image[] = []
+let playerAnimUp: Image[] = []
+let playerAnimRight: Image[] = []
+let playerAnimLeft: Image[] = []
 let playerSprite: Sprite = null
 let pauseMenu: miniMenu.MenuItem[] = []
 let pauseMenuOpen = false
@@ -503,6 +312,10 @@ mapOpen = false
 pauseMenuOpen = false
 pauseMenu = [miniMenu.createMenuItem("Inventory", assets.image`inventoryIcon`), miniMenu.createMenuItem("Map", assets.image`mapIcon`), miniMenu.createMenuItem("Save & Quit", assets.image`saveAndQuitIcon`)]
 playerSprite = sprites.create(assets.image`playerImage`, SpriteKind.Player)
+playerAnimLeft = assets.animation`normalLeft`
+playerAnimRight = assets.animation`normalRight`
+playerAnimUp = assets.animation`normalUp`
+playerAnimDown = assets.animation`normalDown`
 controller.moveSprite(playerSprite)
 playerHouse = tilemap`playerHouse`
 crossroads = tilemap`crossroads`
