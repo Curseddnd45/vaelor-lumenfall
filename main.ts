@@ -220,7 +220,6 @@ function tileAroundSpriteIs (tile: Image, sprite: Sprite) {
 }
 sprites.onOverlap(SpriteKind.Player, SpriteKind.Tree, function (sprite, otherSprite) {
     if (sprite.overlapsWith(otherSprite)) {
-        sprite.z = otherSprite.z + 1
         playerAnimLeft = [img`
             . . . . f 1 f 1 f 1 . . . . . . 
             . . . 1 . . . . . . f 1 . . . . 
@@ -228,7 +227,7 @@ sprites.onOverlap(SpriteKind.Player, SpriteKind.Tree, function (sprite, otherSpr
             . . 1 . . . . . . . . . 1 . . . 
             . f . . . . . . . . . . f . . . 
             . 1 . . . . . . . . . . 1 . . . 
-            . f . . . . . . . . . . . f 1 . 
+            . f . . . . . . . . . . . f . . 
             . 1 . . . . . . . . . . . 1 . . 
             . . f . . . . . . . . . . f . . 
             . . . 1 . . . . . . . . 1 . . . 
