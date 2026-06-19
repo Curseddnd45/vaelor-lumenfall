@@ -219,80 +219,11 @@ function tileAroundSpriteIs (tile: Image, sprite: Sprite) {
     return sprite.tileKindAt(TileDirection.Bottom, tile) || sprite.tileKindAt(TileDirection.Right, tile) || sprite.tileKindAt(TileDirection.Top, tile) || sprite.tileKindAt(TileDirection.Left, tile)
 }
 sprites.onOverlap(SpriteKind.Player, SpriteKind.Tree, function (sprite, otherSprite) {
-    if (sprite.overlapsWith(otherSprite)) {
-        playerAnimLeft = [img`
-            . . . . f 1 f 1 f 1 . . . . . . 
-            . . . 1 . . . . . . f 1 . . . . 
-            . . f . . . . . . . . . f . . . 
-            . . 1 . . . . . . . . . 1 . . . 
-            . f . . . . . . . . . . f . . . 
-            . 1 . . . . . . . . . . 1 . . . 
-            . f . . . . . . . . . . . f . . 
-            . 1 . . . . . . . . . . . 1 . . 
-            . . f . . . . . . . . . . f . . 
-            . . . 1 . . . . . . . . 1 . . . 
-            . . . f . . . . . . 1 f . . . . 
-            . . . 1 . . . . . . f . . . . . 
-            . . . f . . . . . . 1 . . . . . 
-            . . . 1 . . . . . . f . . . . . 
-            . . . . f 1 . . . 1 . . . . . . 
-            . . . . . . f 1 f . . . . . . . 
-            `,img`
-            . . . . . . . . . . . . . . . . 
-            . . . . f 1 f 1 f 1 . . . . . . 
-            . . . 1 . . . . . . f 1 . . . . 
-            . . f . . . . . . . . . f . . . 
-            . . 1 . . . . . . . . . 1 . . . 
-            . f . . . . . . . . . . f . . . 
-            . 1 . . . . . . . . . . 1 . . . 
-            . f . . . . . . . . . . . f . . 
-            . 1 . . . . . . . . . . . 1 . . 
-            . . f . . . . . . . . . . f . . 
-            . . . 1 . . . . . . . f 1 . . . 
-            . . . f . . . . . . 1 . . . . . 
-            . . . 1 . . . . . . f . . . . . 
-            . . f . . . . . . . . 1 . . . . 
-            . . 1 . . . 1 f 1 . . f . . . . 
-            . . . f 1 f . . . f 1 . . . . . 
-            `,img`
-            . . . . f 1 f 1 f 1 . . . . . . 
-            . . . 1 . . . . . . f 1 . . . . 
-            . . f . . . . . . . . . f . . . 
-            . . 1 . . . . . . . . . 1 . . . 
-            . f . . . . . . . . . . f . . . 
-            . 1 . . . . . . . . . . 1 . . . 
-            . f . . . . . . . . . . . f . . 
-            . 1 . . . . . . . . . . . 1 . . 
-            . . f . . . . . . . . . . f . . 
-            . . . 1 . . . . . . . . 1 . . . 
-            . . . f . . . . . . 1 f . . . . 
-            . . . 1 . . . . . . f . . . . . 
-            . . . f . . . . . . 1 . . . . . 
-            . . . 1 . . . . . . f . . . . . 
-            . . . . f 1 . . . 1 . . . . . . 
-            . . . . . . f 1 f . . . . . . . 
-            `,img`
-            . . . . . . . . . . . . . . . . 
-            . . . . f 1 f 1 f 1 . . . . . . 
-            . . . 1 . . . . . . f 1 . . . . 
-            . . f . . . . . . . . . f . . . 
-            . . 1 . . . . . . . . . 1 . . . 
-            . f . . . . . . . . . . f . . . 
-            . 1 . . . . . . . . . . 1 . . . 
-            . f . . . . . . . . . . . f . . 
-            . 1 . . . . . . . . . . . 1 . . 
-            . . f . . . . . . . . . . f . . 
-            . . . 1 . . . . . . . f 1 . . . 
-            . . . f . . . . . . 1 . . . . . 
-            . . . 1 . . . . . . f . . . . . 
-            . . f . . . . . . . . 1 . . . . 
-            . . 1 . . . 1 f 1 . . f . . . . 
-            . . . f 1 f . . . f 1 . . . . . 
-            `]
-        playerAnimRight = assets.animation`normalRight`
-        playerAnimUp = assets.animation`normalUp`
-        playerAnimDown = assets.animation`normalDown`
-    }
+    sprite.z = otherSprite.z + 1
+    playerAnimLeft = assets.animation`transperentLeft`
+    playerAnimRight = assets.animation`transparentRight`
+    playerAnimUp = assets.animation`transparentUp`
+    playerAnimDown = assets.animation`transparentDown`
 })
 let mapSprite: Sprite = null
 let myMenu: miniMenu.MenuSprite = null
