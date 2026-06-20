@@ -3,24 +3,7 @@ namespace SpriteKind {
     export const Tree = SpriteKind.create()
 }
 controller.up.onEvent(ControllerButtonEvent.Pressed, function () {
-    playerSprite.setImage(img`
-        . . . . . . f f f f . . . . . . 
-        . . . . f f e e e e f f . . . . 
-        . . . f e e e f f e e e f . . . 
-        . . f f f f f 2 2 f f f f f . . 
-        . . f f e 2 e 2 2 e 2 e f f . . 
-        . . f e 2 f 2 f f 2 f 2 e f . . 
-        . . f f f 2 2 e e 2 2 f f f . . 
-        . f f e f 2 f e e f 2 f e f f . 
-        . f e e f f e e e e f e e e f . 
-        . . f e e e e e e e e e e f . . 
-        . . . f e e e e e e e e f . . . 
-        . . e 4 f f f f f f f f 4 e . . 
-        . . 4 d f 2 2 2 2 2 2 f d 4 . . 
-        . . 4 4 f 4 4 4 4 4 4 f 4 4 . . 
-        . . . . . f f f f f f . . . . . 
-        . . . . . f f . . f f . . . . . 
-        `)
+    playerSprite.setImage(playerDeafultUp)
     characterAnimations.loopFrames(
     playerSprite,
     playerAnimUp,
@@ -69,24 +52,7 @@ controller.B.onEvent(ControllerButtonEvent.Pressed, function () {
     }
 })
 controller.left.onEvent(ControllerButtonEvent.Pressed, function () {
-    playerSprite.setImage(img`
-        . . . . f f f f f f . . . . . . 
-        . . . f 2 f e e e e f f . . . . 
-        . . f 2 2 2 f e e e e f f . . . 
-        . . f e e e e f f e e e f . . . 
-        . f e 2 2 2 2 e e f f f f . . . 
-        . f 2 e f f f f 2 2 2 e f . . . 
-        . f f f e e e f f f f f f f . . 
-        . f e e 4 4 f b e 4 4 e f f . . 
-        . . f e d d f 1 4 d 4 e e f . . 
-        . . . f d d d d 4 e e e f . . . 
-        . . . f e 4 4 4 e e f f . . . . 
-        . . . f 2 2 2 e d d 4 . . . . . 
-        . . . f 2 2 2 e d d e . . . . . 
-        . . . f 5 5 4 f e e f . . . . . 
-        . . . . f f f f f f . . . . . . 
-        . . . . . . f f f . . . . . . . 
-        `)
+    playerSprite.setImage(playerDeafultLeft)
     characterAnimations.loopFrames(
     playerSprite,
     playerAnimLeft,
@@ -164,24 +130,7 @@ scene.onOverlapTile(SpriteKind.Player, tileUtil.door1, function (sprite, locatio
     }
 })
 controller.right.onEvent(ControllerButtonEvent.Pressed, function () {
-    playerSprite.setImage(img`
-        . . . . . . f f f f f f . . . . 
-        . . . . f f e e e e f 2 f . . . 
-        . . . f f e e e e f 2 2 2 f . . 
-        . . . f e e e f f e e e e f . . 
-        . . . f f f f e e 2 2 2 2 e f . 
-        . . . f e 2 2 2 f f f f e 2 f . 
-        . . f f f f f f f e e e f f f . 
-        . . f f e 4 4 e b f 4 4 e e f . 
-        . . f e e 4 d 4 1 f d d e f . . 
-        . . . f e e e 4 d d d d f . . . 
-        . . . . f f e e 4 4 4 e f . . . 
-        . . . . . 4 d d e 2 2 2 f . . . 
-        . . . . . e d d e 2 2 2 f . . . 
-        . . . . . f e e f 4 5 5 f . . . 
-        . . . . . . f f f f f f . . . . 
-        . . . . . . . f f f . . . . . . 
-        `)
+    playerSprite.setImage(playerDeafultRght)
     characterAnimations.loopFrames(
     playerSprite,
     playerAnimRight,
@@ -190,24 +139,7 @@ controller.right.onEvent(ControllerButtonEvent.Pressed, function () {
     )
 })
 controller.down.onEvent(ControllerButtonEvent.Pressed, function () {
-    playerSprite.setImage(img`
-        . . . . . . f f f f . . . . . . 
-        . . . . f f f 2 2 f f f . . . . 
-        . . . f f f 2 2 2 2 f f f . . . 
-        . . f f f e e e e e e f f f . . 
-        . . f f e 2 2 2 2 2 2 e e f . . 
-        . . f e 2 f f f f f f 2 e f . . 
-        . . f f f f e e e e f f f f . . 
-        . f f e f b f 4 4 f b f e f f . 
-        . f e e 4 1 f d d f 1 4 e e f . 
-        . . f e e d d d d d d e e f . . 
-        . . . f e e 4 4 4 4 e e f . . . 
-        . . e 4 f 2 2 2 2 2 2 f 4 e . . 
-        . . 4 d f 2 2 2 2 2 2 f d 4 . . 
-        . . 4 4 f 4 4 5 5 4 4 f 4 4 . . 
-        . . . . . f f f f f f . . . . . 
-        . . . . . f f . . f f . . . . . 
-        `)
+    playerSprite.setImage(playerDeafultDown)
     characterAnimations.loopFrames(
     playerSprite,
     playerAnimDown,
@@ -218,18 +150,15 @@ controller.down.onEvent(ControllerButtonEvent.Pressed, function () {
 function tileAroundSpriteIs (tile: Image, sprite: Sprite) {
     return sprite.tileKindAt(TileDirection.Bottom, tile) || sprite.tileKindAt(TileDirection.Right, tile) || sprite.tileKindAt(TileDirection.Top, tile) || sprite.tileKindAt(TileDirection.Left, tile)
 }
-sprites.onOverlap(SpriteKind.Player, SpriteKind.Tree, function (sprite, otherSprite) {
-    sprite.z = otherSprite.z + 1
-    playerAnimLeft = assets.animation`transperentLeft`
-    playerAnimRight = assets.animation`transparentRight`
-    playerAnimUp = assets.animation`transparentUp`
-    playerAnimDown = assets.animation`transparentDown`
-})
 let mapSprite: Sprite = null
 let myMenu: miniMenu.MenuSprite = null
 let oceanForest: tiles.TileMapData = null
 let crossroads: tiles.TileMapData = null
 let playerHouse: tiles.TileMapData = null
+let playerDeafultDown: Image = null
+let playerDeafultUp: Image = null
+let playerDeafultRght: Image = null
+let playerDeafultLeft: Image = null
 let playerAnimDown: Image[] = []
 let playerAnimUp: Image[] = []
 let playerAnimRight: Image[] = []
@@ -246,6 +175,78 @@ playerAnimLeft = assets.animation`normalLeft`
 playerAnimRight = assets.animation`normalRight`
 playerAnimUp = assets.animation`normalUp`
 playerAnimDown = assets.animation`normalDown`
+playerDeafultLeft = img`
+    . . . . f f f f f f . . . . . . 
+    . . . f 2 f e e e e f f . . . . 
+    . . f 2 2 2 f e e e e f f . . . 
+    . . f e e e e f f e e e f . . . 
+    . f e 2 2 2 2 e e f f f f . . . 
+    . f 2 e f f f f 2 2 2 e f . . . 
+    . f f f e e e f f f f f f f . . 
+    . f e e 4 4 f b e 4 4 e f f . . 
+    . . f e d d f 1 4 d 4 e e f . . 
+    . . . f d d d d 4 e e e f . . . 
+    . . . f e 4 4 4 e e f f . . . . 
+    . . . f 2 2 2 e d d 4 . . . . . 
+    . . . f 2 2 2 e d d e . . . . . 
+    . . . f 5 5 4 f e e f . . . . . 
+    . . . . f f f f f f . . . . . . 
+    . . . . . . f f f . . . . . . . 
+    `
+playerDeafultRght = img`
+    . . . . . . f f f f f f . . . . 
+    . . . . f f e e e e f 2 f . . . 
+    . . . f f e e e e f 2 2 2 f . . 
+    . . . f e e e f f e e e e f . . 
+    . . . f f f f e e 2 2 2 2 e f . 
+    . . . f e 2 2 2 f f f f e 2 f . 
+    . . f f f f f f f e e e f f f . 
+    . . f f e 4 4 e b f 4 4 e e f . 
+    . . f e e 4 d 4 1 f d d e f . . 
+    . . . f e e e 4 d d d d f . . . 
+    . . . . f f e e 4 4 4 e f . . . 
+    . . . . . 4 d d e 2 2 2 f . . . 
+    . . . . . e d d e 2 2 2 f . . . 
+    . . . . . f e e f 4 5 5 f . . . 
+    . . . . . . f f f f f f . . . . 
+    . . . . . . . f f f . . . . . . 
+    `
+playerDeafultUp = img`
+    . . . . . . f f f f . . . . . . 
+    . . . . f f e e e e f f . . . . 
+    . . . f e e e f f e e e f . . . 
+    . . f f f f f 2 2 f f f f f . . 
+    . . f f e 2 e 2 2 e 2 e f f . . 
+    . . f e 2 f 2 f f 2 f 2 e f . . 
+    . . f f f 2 2 e e 2 2 f f f . . 
+    . f f e f 2 f e e f 2 f e f f . 
+    . f e e f f e e e e f e e e f . 
+    . . f e e e e e e e e e e f . . 
+    . . . f e e e e e e e e f . . . 
+    . . e 4 f f f f f f f f 4 e . . 
+    . . 4 d f 2 2 2 2 2 2 f d 4 . . 
+    . . 4 4 f 4 4 4 4 4 4 f 4 4 . . 
+    . . . . . f f f f f f . . . . . 
+    . . . . . f f . . f f . . . . . 
+    `
+playerDeafultDown = img`
+    . . . . . . f f f f . . . . . . 
+    . . . . f f f 2 2 f f f . . . . 
+    . . . f f f 2 2 2 2 f f f . . . 
+    . . f f f e e e e e e f f f . . 
+    . . f f e 2 2 2 2 2 2 e e f . . 
+    . . f e 2 f f f f f f 2 e f . . 
+    . . f f f f e e e e f f f f . . 
+    . f f e f b f 4 4 f b f e f f . 
+    . f e e 4 1 f d d f 1 4 e e f . 
+    . . f e e d d d d d d e e f . . 
+    . . . f e e 4 4 4 4 e e f . . . 
+    . . e 4 f 2 2 2 2 2 2 f 4 e . . 
+    . . 4 d f 2 2 2 2 2 2 f d 4 . . 
+    . . 4 4 f 4 4 5 5 4 4 f 4 4 . . 
+    . . . . . f f f f f f . . . . . 
+    . . . . . f f . . f f . . . . . 
+    `
 controller.moveSprite(playerSprite)
 playerHouse = tilemap`playerHouse`
 crossroads = tilemap`crossroads`
