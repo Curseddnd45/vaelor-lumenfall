@@ -51,6 +51,19 @@ controller.B.onEvent(ControllerButtonEvent.Pressed, function () {
         pauseMenuOpen = false
     }
 })
+controller.A.onEvent(ControllerButtonEvent.Pressed, function () {
+    if (playerSprite.isHittingTile(CollisionDirection.Left) || playerSprite.isHittingTile(CollisionDirection.Top) || playerSprite.isHittingTile(CollisionDirection.Right) || playerSprite.isHittingTile(CollisionDirection.Bottom)) {
+        if (tileAroundSpriteIs(assets.tile`‘To Volcano’`, playerSprite)) {
+            story.printCharacterText("'To Volcano'", "Sign")
+        }
+        if (tileAroundSpriteIs(assets.tile`‘To Ocean’`, playerSprite)) {
+            story.printCharacterText("'To Ocean'", "Sign")
+        }
+        if (tileAroundSpriteIs(assets.tile`‘To Mountain’`, playerSprite)) {
+            story.printCharacterText("'To Mountain'", "Sign")
+        }
+    }
+})
 controller.left.onEvent(ControllerButtonEvent.Pressed, function () {
     playerSprite.setImage(playerDeafultLeft)
     characterAnimations.loopFrames(
@@ -247,7 +260,6 @@ playerDeafultDown = img`
     . . . . . f f f f f f . . . . . 
     . . . . . f f . . f f . . . . . 
     `
-controller.moveSprite(playerSprite)
 playerHouse = tilemap`playerHouse`
 crossroads = tilemap`crossroads`
 oceanForest = tilemap`level6`
@@ -258,16 +270,13 @@ scene.cameraFollowSprite(playerSprite)
 tileUtil.connectMaps(playerHouse, crossroads, MapConnectionKind.Door1)
 tileUtil.connectMaps(crossroads, oceanForest, MapConnectionKind.Door2)
 tileUtil.coverAllTiles(tileUtil.door0, sprites.dungeon.doorOpenSouth)
-forever(function () {
-    if ((playerSprite.isHittingTile(CollisionDirection.Left) || playerSprite.isHittingTile(CollisionDirection.Top) || playerSprite.isHittingTile(CollisionDirection.Right) || playerSprite.isHittingTile(CollisionDirection.Bottom)) && controller.A.isPressed()) {
-        if (tileAroundSpriteIs(assets.tile`‘To Volcano’`, playerSprite)) {
-            story.printCharacterText("'To Volcano'", "Sign")
-        }
-        if (tileAroundSpriteIs(assets.tile`‘To Ocean’`, playerSprite)) {
-            story.printCharacterText("'To Ocean'", "Sign")
-        }
-        if (tileAroundSpriteIs(assets.tile`‘To Mountain’`, playerSprite)) {
-            story.printCharacterText("'To Mountain'", "Sign")
-        }
-    }
+story.startCutscene(function () {
+    story.printCharacterText("Hello?", "???")
+    story.printCharacterText("Helloooo?", "???")
+    story.printCharacterText("Vae?", "???")
+    story.printCharacterText("You awake?", "???")
+    story.printCharacterText("Er... yes?", "You")
+    story.printCharacterText("Well then, come on out!", "???")
+    story.printCharacterText("We need your help!", "???")
+    controller.moveSprite(playerSprite)
 })
