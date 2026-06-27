@@ -2,6 +2,62 @@ namespace SpriteKind {
     export const Map = SpriteKind.create()
     export const Tree = SpriteKind.create()
 }
+/**
+ * Runs a 12-stage matrix scramble animation for any character name
+ * 
+ * @param name The final name to reveal
+ */
+// --- ANIMATION FRAMES ---
+// Frame 1: Initial placeholders (e.g. ???)
+function scrambleCharacterName (name: string) {
+    symbols = "!@#$%^&*()_+?><-="
+    len = name.length
+    let makeSymbols = (count: number) => {
+        let str = ""
+        for (let i = 0; i < count; i++) {
+            str += symbols.charAt(randint(0, symbols.length - 1))
+        }
+        return str
+    }
+for (let index = 0; index < len; index++) {
+        placeholders = "" + placeholders + "?"
+    }
+    story.printCharacterText("", placeholders)
+    pause(400)
+    // Frame 2 & 3: Full chaotic symbol scramble
+    story.printCharacterText("", makeSymbols(len))
+    pause(80)
+    story.printCharacterText("", makeSymbols(len))
+    pause(80)
+    // Frame 4 & 5: First letter locks down
+    f1 = name.charAt(0)
+    story.printCharacterText("", "" + f1 + makeSymbols(len - 1))
+    pause(80)
+    story.printCharacterText("", "" + f1 + makeSymbols(len - 1))
+    pause(80)
+    let f2 = len > 1 ? name.substr(0, 2) : name
+story.printCharacterText("", "" + f2 + makeSymbols(Math.max(0, len - 2)))
+    pause(80)
+    story.printCharacterText("", "" + f2 + makeSymbols(Math.max(0, len - 2)))
+    pause(80)
+    let f3 = len > 2 ? name.substr(0, 3) : name
+story.printCharacterText("", "" + f3 + makeSymbols(Math.max(0, len - 3)))
+    pause(80)
+    story.printCharacterText("", "" + f3 + makeSymbols(Math.max(0, len - 3)))
+    pause(80)
+    // Frame 10: Complete target name locks in
+    story.printCharacterText("", name)
+    pause(150)
+    // Frame 11: Single glitch hiccup (swaps a middle character briefly if length allows)
+    if (len > 1) {
+        glitchIndex = Math.floor(len / 2)
+        glitchName = "" + name.substr(0, glitchIndex) + makeSymbols(1) + name.substr(glitchIndex + 1)
+        story.printCharacterText("", glitchName)
+        pause(80)
+    }
+    // Frame 12: Absolute permanent name resolution
+    story.printCharacterText("", name)
+}
 controller.up.onEvent(ControllerButtonEvent.Pressed, function () {
     playerSprite.setImage(playerDeafultUp)
     characterAnimations.loopFrames(
@@ -53,13 +109,13 @@ controller.B.onEvent(ControllerButtonEvent.Pressed, function () {
 })
 controller.A.onEvent(ControllerButtonEvent.Pressed, function () {
     if (playerSprite.isHittingTile(CollisionDirection.Left) || playerSprite.isHittingTile(CollisionDirection.Top) || playerSprite.isHittingTile(CollisionDirection.Right) || playerSprite.isHittingTile(CollisionDirection.Bottom)) {
-        if (tileAroundSpriteIs(assets.tile`‘To Volcano’`, playerSprite)) {
+        if (tileAroundSpriteIs(assets.tile`baseTransparency16`, playerSprite)) {
             story.printCharacterText("'To Volcano'", "Sign")
         }
-        if (tileAroundSpriteIs(assets.tile`‘To Ocean’`, playerSprite)) {
+        if (tileAroundSpriteIs(assets.tile`baseTransparency16`, playerSprite)) {
             story.printCharacterText("'To Ocean'", "Sign")
         }
-        if (tileAroundSpriteIs(assets.tile`‘To Mountain’`, playerSprite)) {
+        if (tileAroundSpriteIs(assets.tile`baseTransparency16`, playerSprite)) {
             story.printCharacterText("'To Mountain'", "Sign")
         }
     }
@@ -165,6 +221,12 @@ function tileAroundSpriteIs (tile: Image, sprite: Sprite) {
 }
 let mapSprite: Sprite = null
 let myMenu: miniMenu.MenuSprite = null
+let glitchName = ""
+let glitchIndex = 0
+let f1 = ""
+let placeholders = ""
+let len = 0
+let symbols = ""
 let oceanForest: tiles.TileMapData = null
 let crossroads: tiles.TileMapData = null
 let playerHouse: tiles.TileMapData = null
@@ -275,8 +337,11 @@ story.startCutscene(function () {
     story.printCharacterText("Helloooo?", "???")
     story.printCharacterText("Vae?", "???")
     story.printCharacterText("You awake?", "???")
-    story.printCharacterText("Er... yes?", "You")
-    story.printCharacterText("Well then, come on out!", "???")
-    story.printCharacterText("We need your help!", "???")
+    story.printCharacterText("*yawn* yes. Wait, who is it?", "You")
+    story.printCharacterText("Me!", "???")
+    story.printCharacterText("Oh, hey!", "You")
+    scrambleCharacterName("Lyra")
+    story.printCharacterText("Well then, come on out!", "Lyra")
+    story.printCharacterText("We need your help!", "Lyra")
     controller.moveSprite(playerSprite)
 })
