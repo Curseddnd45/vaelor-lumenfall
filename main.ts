@@ -2,7 +2,14 @@ namespace SpriteKind {
     export const Map = SpriteKind.create()
     export const Tree = SpriteKind.create()
 }
+// the starting row of question marks
 function scrambleCharacterName (name: string) {
+    // ---- tweak these two for speed ----
+    // ms between flicker frames (try 40-80)
+    frameDelay = 55
+    // ms to hold the finished name
+    holdDelay = 250
+    // -----------------------------------
     symbols = "!@#$%^&*()_+?><-="
     len = name.length
     let makeSymbols = (count: number) => {
@@ -12,39 +19,46 @@ function scrambleCharacterName (name: string) {
         }
         return str
     }
+let wait = (ms: number) => {
+        if (!skipPressed) {
+            pause(ms)
+        }
+    }
 for (let index = 0; index < len; index++) {
         placeholders = "" + placeholders + "?"
     }
-    story.printCharacterText("", placeholders)
-    pause(400)
-    story.printCharacterText("", makeSymbols(len))
-    pause(80)
-    story.printCharacterText("", makeSymbols(len))
-    pause(80)
-    f1 = name.charAt(0)
-    story.printCharacterText("", "" + f1 + makeSymbols(len - 1))
-    pause(80)
-    story.printCharacterText("", "" + f1 + makeSymbols(len - 1))
-    pause(80)
-    let f2 = len > 1 ? name.substr(0, 2) : name
-story.printCharacterText("", "" + f2 + makeSymbols(Math.max(0, len - 2)))
-    pause(80)
-    story.printCharacterText("", "" + f2 + makeSymbols(Math.max(0, len - 2)))
-    pause(80)
-    let f3 = len > 2 ? name.substr(0, 3) : name
-story.printCharacterText("", "" + f3 + makeSymbols(Math.max(0, len - 3)))
-    pause(80)
-    story.printCharacterText("", "" + f3 + makeSymbols(Math.max(0, len - 3)))
-    pause(80)
-    story.printCharacterText("", name)
-    pause(150)
-    if (len > 1) {
-        glitchIndex = Math.floor(len / 2)
-        glitchName = "" + name.substr(0, glitchIndex) + makeSymbols(1) + name.substr(glitchIndex + 1)
-        story.printCharacterText("", glitchName)
-        pause(80)
+    // ONE text sprite, styled to match the story label
+    nameText = textsprite.create(placeholders, 6, 1)
+    nameText.setBorder(0, 0, 1)
+    nameText.setFlag(SpriteFlag.RelativeToCamera, true)
+    nameText.setFlag(SpriteFlag.Ghost, true)
+    nameText.z = scene.HUD_Z
+    let show = (txt: string) => {
+        nameText.setText(txt)
+        nameText.left = 2
+        nameText.bottom = 66
     }
-    story.printCharacterText("", name)
+show(placeholders)
+wait(300)
+show(makeSymbols(len))
+wait(frameDelay)
+show(makeSymbols(len))
+wait(frameDelay)
+for (let reveal = 1; reveal <= len; reveal++) {
+        show(name.substr(0, reveal) + makeSymbols(len - reveal))
+        wait(frameDelay)
+    }
+show(name)
+wait(holdDelay)
+// one glitch in the middle
+    if (len > 1) {
+        g = Math.floor(len / 2)
+        show(name.substr(0, g) + makeSymbols(1) + name.substr(g + 1))
+wait(frameDelay)
+    }
+    show(name)
+wait(holdDelay)
+nameText.destroy()
 }
 controller.up.onEvent(ControllerButtonEvent.Pressed, function () {
     playerSprite.setImage(playerDeafultUp)
@@ -90,21 +104,34 @@ controller.B.onEvent(ControllerButtonEvent.Pressed, function () {
         })
     } else {
         sprites.destroy(mapSprite)
+        mapOpen = false
         myMenu.close()
         controller.moveSprite(playerSprite)
         pauseMenuOpen = false
     }
 })
 controller.A.onEvent(ControllerButtonEvent.Pressed, function () {
+    // don't do anything while the pause menu is open
+    if (pauseMenuOpen) {
+        return
+    }
+    // if someone is talking, skip it
+    if (dialogueActive) {
+        skipPressed = true
+        story.cancelCurrentCutscene()
+        dialogueActive = false
+        return
+    }
+    // otherwise, look for a sign to read
     if (playerSprite.isHittingTile(CollisionDirection.Left) || playerSprite.isHittingTile(CollisionDirection.Top) || playerSprite.isHittingTile(CollisionDirection.Right) || playerSprite.isHittingTile(CollisionDirection.Bottom)) {
-        if (tileAroundSpriteIs(assets.tile`‘To Volcano’`, playerSprite)) {
-            story.printCharacterText("'To Volcano'", "Sign")
+        if (tileAroundSpriteIs(assets.tile`baseTransparency16`, playerSprite)) {
+            sayLine("'To Volcano'", "Sign")
         }
-        if (tileAroundSpriteIs(assets.tile`‘To Ocean’`, playerSprite)) {
-            story.printCharacterText("'To Ocean'", "Sign")
+        if (tileAroundSpriteIs(assets.tile`baseTransparency16`, playerSprite)) {
+            sayLine("'To Ocean'", "Sign")
         }
-        if (tileAroundSpriteIs(assets.tile`‘To Mountain’`, playerSprite)) {
-            story.printCharacterText("'To Mountain'", "Sign")
+        if (tileAroundSpriteIs(assets.tile`baseTransparency16`, playerSprite)) {
+            sayLine("'To Mountain'", "Sign")
         }
     }
 })
@@ -117,6 +144,14 @@ controller.left.onEvent(ControllerButtonEvent.Pressed, function () {
     characterAnimations.rule(Predicate.MovingLeft)
     )
 })
+function sayLine (text: string, who: string) {
+    dialogueActive = true
+    skipPressed = false
+    story.startCutscene(function () {
+        story.printCharacterText(text, who)
+        dialogueActive = false
+    })
+}
 scene.onOverlapTile(SpriteKind.Player, tileUtil.door1, function (sprite, location) {
     tileUtil.loadConnectedMap(MapConnectionKind.Door2)
     tiles.placeOnRandomTile(playerSprite, tileUtil.door1)
@@ -209,10 +244,15 @@ function tileAroundSpriteIs (tile: Image, sprite: Sprite) {
 }
 let mapSprite: Sprite = null
 let myMenu: miniMenu.MenuSprite = null
-let glitchName = ""
-let glitchIndex = 0
-let f1 = ""
+let g = 0
+let nameText: TextSprite = null
 let placeholders = ""
+let len = 0
+let symbols = ""
+let holdDelay = 0
+let frameDelay = 0
+let skipPressed = false
+let dialogueActive = false
 let oceanForest: tiles.TileMapData = null
 let crossroads: tiles.TileMapData = null
 let playerHouse: tiles.TileMapData = null
@@ -228,8 +268,6 @@ let playerSprite: Sprite = null
 let pauseMenu: miniMenu.MenuItem[] = []
 let pauseMenuOpen = false
 let mapOpen = false
-let symbols = ""
-let len = 0
 mapOpen = false
 pauseMenuOpen = false
 pauseMenu = [miniMenu.createMenuItem("Inventory", assets.image`inventoryIcon`), miniMenu.createMenuItem("Map", assets.image`mapIcon`), miniMenu.createMenuItem("Save & Quit", assets.image`saveAndQuitIcon`)]
@@ -320,6 +358,9 @@ scene.cameraFollowSprite(playerSprite)
 tileUtil.connectMaps(playerHouse, crossroads, MapConnectionKind.Door1)
 tileUtil.connectMaps(crossroads, oceanForest, MapConnectionKind.Door2)
 tileUtil.coverAllTiles(tileUtil.door0, sprites.dungeon.doorOpenSouth)
+story.setPagePauseLength(400, 400)
+dialogueActive = true
+skipPressed = false
 story.startCutscene(function () {
     story.printCharacterText("Hello?", "???")
     story.printCharacterText("Helloooo?", "???")
@@ -332,4 +373,5 @@ story.startCutscene(function () {
     story.printCharacterText("Well then, come on out!", "Lyra")
     story.printCharacterText("We need your help!", "Lyra")
     controller.moveSprite(playerSprite)
+    dialogueActive = false
 })
