@@ -2,13 +2,6 @@ namespace SpriteKind {
     export const Map = SpriteKind.create()
     export const Tree = SpriteKind.create()
 }
-/**
- * Runs a 12-stage matrix scramble animation for any character name
- * 
- * @param name The final name to reveal
- */
-// --- ANIMATION FRAMES ---
-// Frame 1: Initial placeholders (e.g. ???)
 function scrambleCharacterName (name: string) {
     symbols = "!@#$%^&*()_+?><-="
     len = name.length
@@ -24,12 +17,10 @@ for (let index = 0; index < len; index++) {
     }
     story.printCharacterText("", placeholders)
     pause(400)
-    // Frame 2 & 3: Full chaotic symbol scramble
     story.printCharacterText("", makeSymbols(len))
     pause(80)
     story.printCharacterText("", makeSymbols(len))
     pause(80)
-    // Frame 4 & 5: First letter locks down
     f1 = name.charAt(0)
     story.printCharacterText("", "" + f1 + makeSymbols(len - 1))
     pause(80)
@@ -45,17 +36,14 @@ story.printCharacterText("", "" + f3 + makeSymbols(Math.max(0, len - 3)))
     pause(80)
     story.printCharacterText("", "" + f3 + makeSymbols(Math.max(0, len - 3)))
     pause(80)
-    // Frame 10: Complete target name locks in
     story.printCharacterText("", name)
     pause(150)
-    // Frame 11: Single glitch hiccup (swaps a middle character briefly if length allows)
     if (len > 1) {
         glitchIndex = Math.floor(len / 2)
         glitchName = "" + name.substr(0, glitchIndex) + makeSymbols(1) + name.substr(glitchIndex + 1)
         story.printCharacterText("", glitchName)
         pause(80)
     }
-    // Frame 12: Absolute permanent name resolution
     story.printCharacterText("", name)
 }
 controller.up.onEvent(ControllerButtonEvent.Pressed, function () {
@@ -109,13 +97,13 @@ controller.B.onEvent(ControllerButtonEvent.Pressed, function () {
 })
 controller.A.onEvent(ControllerButtonEvent.Pressed, function () {
     if (playerSprite.isHittingTile(CollisionDirection.Left) || playerSprite.isHittingTile(CollisionDirection.Top) || playerSprite.isHittingTile(CollisionDirection.Right) || playerSprite.isHittingTile(CollisionDirection.Bottom)) {
-        if (tileAroundSpriteIs(assets.tile`baseTransparency16`, playerSprite)) {
+        if (tileAroundSpriteIs(assets.tile`‘To Volcano’`, playerSprite)) {
             story.printCharacterText("'To Volcano'", "Sign")
         }
-        if (tileAroundSpriteIs(assets.tile`baseTransparency16`, playerSprite)) {
+        if (tileAroundSpriteIs(assets.tile`‘To Ocean’`, playerSprite)) {
             story.printCharacterText("'To Ocean'", "Sign")
         }
-        if (tileAroundSpriteIs(assets.tile`baseTransparency16`, playerSprite)) {
+        if (tileAroundSpriteIs(assets.tile`‘To Mountain’`, playerSprite)) {
             story.printCharacterText("'To Mountain'", "Sign")
         }
     }
@@ -225,8 +213,6 @@ let glitchName = ""
 let glitchIndex = 0
 let f1 = ""
 let placeholders = ""
-let len = 0
-let symbols = ""
 let oceanForest: tiles.TileMapData = null
 let crossroads: tiles.TileMapData = null
 let playerHouse: tiles.TileMapData = null
@@ -242,6 +228,8 @@ let playerSprite: Sprite = null
 let pauseMenu: miniMenu.MenuItem[] = []
 let pauseMenuOpen = false
 let mapOpen = false
+let symbols = ""
+let len = 0
 mapOpen = false
 pauseMenuOpen = false
 pauseMenu = [miniMenu.createMenuItem("Inventory", assets.image`inventoryIcon`), miniMenu.createMenuItem("Map", assets.image`mapIcon`), miniMenu.createMenuItem("Save & Quit", assets.image`saveAndQuitIcon`)]
