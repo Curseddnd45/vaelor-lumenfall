@@ -124,13 +124,13 @@ controller.A.onEvent(ControllerButtonEvent.Pressed, function () {
     }
     // otherwise, look for a sign to read
     if (playerSprite.isHittingTile(CollisionDirection.Left) || playerSprite.isHittingTile(CollisionDirection.Top) || playerSprite.isHittingTile(CollisionDirection.Right) || playerSprite.isHittingTile(CollisionDirection.Bottom)) {
-        if (tileAroundSpriteIs(assets.tile`baseTransparency16`, playerSprite)) {
+        if (tileAroundSpriteIs(assets.tile`signVolcano`, playerSprite)) {
             sayLine("'To Volcano'", "Sign")
         }
-        if (tileAroundSpriteIs(assets.tile`baseTransparency16`, playerSprite)) {
+        if (tileAroundSpriteIs(assets.tile`signOcean`, playerSprite)) {
             sayLine("'To Ocean'", "Sign")
         }
-        if (tileAroundSpriteIs(assets.tile`baseTransparency16`, playerSprite)) {
+        if (tileAroundSpriteIs(assets.tile`signMountain`, playerSprite)) {
             sayLine("'To Mountain'", "Sign")
         }
     }
@@ -244,6 +244,14 @@ function tileAroundSpriteIs (tile: Image, sprite: Sprite) {
 }
 let mapSprite: Sprite = null
 let myMenu: miniMenu.MenuSprite = null
+let g = 0
+let nameText: TextSprite = null
+let placeholders = ""
+let len = 0
+let symbols = ""
+let holdDelay = 0
+let frameDelay = 0
+let skipPressed = false
 let dialogueActive = false
 let oceanForest: tiles.TileMapData = null
 let crossroads: tiles.TileMapData = null
@@ -260,14 +268,6 @@ let playerSprite: Sprite = null
 let pauseMenu: miniMenu.MenuItem[] = []
 let pauseMenuOpen = false
 let mapOpen = false
-let skipPressed = false
-let frameDelay = 0
-let holdDelay = 0
-let symbols = ""
-let len = 0
-let placeholders = ""
-let nameText: TextSprite = null
-let g = 0
 mapOpen = false
 pauseMenuOpen = false
 pauseMenu = [miniMenu.createMenuItem("Inventory", assets.image`inventoryIcon`), miniMenu.createMenuItem("Map", assets.image`mapIcon`), miniMenu.createMenuItem("Save & Quit", assets.image`saveAndQuitIcon`)]
