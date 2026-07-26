@@ -1,6 +1,7 @@
 namespace SpriteKind {
     export const Map = SpriteKind.create()
     export const Tree = SpriteKind.create()
+    export const Weapon = SpriteKind.create()
 }
 // the starting row of question marks
 function scrambleCharacterName (name: string) {
@@ -61,6 +62,7 @@ wait(holdDelay)
 nameText.destroy()
 }
 controller.up.onEvent(ControllerButtonEvent.Pressed, function () {
+    facing = "up"
     playerSprite.setImage(playerDeafultUp)
     characterAnimations.loopFrames(
     playerSprite,
@@ -136,6 +138,7 @@ controller.A.onEvent(ControllerButtonEvent.Pressed, function () {
     }
 })
 controller.left.onEvent(ControllerButtonEvent.Pressed, function () {
+    facing = "left"
     playerSprite.setImage(playerDeafultLeft)
     characterAnimations.loopFrames(
     playerSprite,
@@ -161,6 +164,7 @@ scene.onOverlapTile(SpriteKind.Player, tileUtil.door1, function (sprite, locatio
         tileUtil.coverAllTiles(tileUtil.door0, sprites.dungeon.doorOpenNorth)
         tileUtil.coverAllTiles(tileUtil.door1, sprites.castle.tilePath5)
         sprites.destroyAllSpritesOfKind(SpriteKind.Tree)
+        sprites.destroyAllSpritesOfKind(SpriteKind.Enemy)
     } else if (tileUtil.currentTilemap() == oceanForest) {
         scene.setBackgroundColor(7)
         playerSprite.y += 16
@@ -219,9 +223,12 @@ scene.onOverlapTile(SpriteKind.Player, tileUtil.door1, function (sprite, locatio
             8 e e e e e 6 e 8 8 . . 8 . . . 
             . e e e e . 8 e e . . . . . . . 
             `, SpriteKind.Tree)
+        spawnEnemy(60, 60)
+        spawnEnemy(120, 90)
     }
 })
 controller.right.onEvent(ControllerButtonEvent.Pressed, function () {
+    facing = "right"
     playerSprite.setImage(playerDeafultRght)
     characterAnimations.loopFrames(
     playerSprite,
@@ -231,6 +238,7 @@ controller.right.onEvent(ControllerButtonEvent.Pressed, function () {
     )
 })
 controller.down.onEvent(ControllerButtonEvent.Pressed, function () {
+    facing = "down"
     playerSprite.setImage(playerDeafultDown)
     characterAnimations.loopFrames(
     playerSprite,
@@ -244,36 +252,68 @@ function tileAroundSpriteIs (tile: Image, sprite: Sprite) {
 }
 function spawnEnemy (x: number, y: number) {
     e = sprites.create(img`
-        . . . . . . . . . . . . . . . . 
-        . . . . . . . . . . . . . . . . 
-        . . . . . . . . . . . . . . . . 
-        . . . . . . . . . . . . . . . . 
-        . . . . . . . . . . . . . . . . 
-        . . . . . . . . . . . . . . . . 
-        . . . . . . . . . . . . . . . . 
-        . . . . . . . . . . . . . . . . 
-        . . . . . . . . . . . . . . . . 
-        . . . . . . . . . . . . . . . . 
-        . . . . . . . . . . . . . . . . 
-        . . . . . . . . . . . . . . . . 
-        . . . . . . . . . . . . . . . . 
-        . . . . . . . . . . . . . . . . 
-        . . . . . . . . . . . . . . . . 
-        . . . . . . . . . . . . . . . . 
+        . . . . . . f f f f . . . . . . 
+        . . . . f f 1 1 1 1 f f . . . . 
+        . . . f b 1 1 1 1 1 1 b f . . . 
+        . . . f 1 1 1 1 1 1 1 1 f . . . 
+        . . f d 1 1 1 1 1 1 1 1 d f . . 
+        . . f d 1 1 1 1 1 1 1 1 d f . . 
+        . . f d d d 1 1 1 1 d d d f . . 
+        . . f b d b f d d f b d b f . . 
+        . . f c d c f 1 1 f c d c f . . 
+        . . . f b 1 1 1 1 1 1 b f . . . 
+        . . f f f c d b 1 b d f f f f . 
+        f c 1 1 1 c b f b f c 1 1 1 c f 
+        f 1 b 1 b 1 f f f f 1 b 1 b 1 f 
+        f b f b f f f f f f b f b f b f 
+        . . . . . f f f f f f . . . . . 
+        . . . . . . . f f f . . . . . . 
         `, SpriteKind.Enemy)
     e.setPosition(x, y)
+    sprites.setDataNumber(e, "hp", 3)
+    e.follow(playerSprite, 25)
 }
+function useVoid () {
+    // the sword is called Unnamed Iron Blade
+    voidBlade = sprites.create(assets.image`voidBlade`, SpriteKind.Weapon)
+    voidBlade.setFlag(SpriteFlag.GhostThroughSprites, false)
+    voidBlade.setFlag(SpriteFlag.GhostThroughTiles, false)
+    voidBlade.setFlag(SpriteFlag.GhostThroughWalls, false)
+    if (facing == "up") {
+        voidBlade.setPosition(playerSprite.x, playerSprite.y - 12)
+    } else if (facing == "down") {
+        voidBlade.setPosition(playerSprite.x, playerSprite.y + 12)
+    } else if (facing == "left") {
+        voidBlade.setPosition(playerSprite.x - 12, playerSprite.y)
+    } else {
+        voidBlade.setPosition(playerSprite.x + 12, playerSprite.y)
+    }
+    timer.after(150, function () {
+        sprites.destroy(voidBlade)
+    })
+}
+sprites.onOverlap(SpriteKind.Player, SpriteKind.Enemy, function (sprite, otherSprite) {
+    if (playerInvincible) {
+        return
+    }
+    playerInvincible = true
+    playerHealth.value += -10
+    scene.cameraShake(4, 200)
+    sprite.setFlag(SpriteFlag.Invisible, true)
+    timer.after(120, function () {
+        sprite.setFlag(SpriteFlag.Invisible, false)
+    })
+    timer.after(800, function () {
+        playerInvincible = false
+    })
+    if (playerHealth.value <= 0) {
+        game.gameOver(false)
+    }
+})
+let voidBlade: Sprite = null
 let e: Sprite = null
 let mapSprite: Sprite = null
 let myMenu: miniMenu.MenuSprite = null
-let g = 0
-let nameText: TextSprite = null
-let placeholders = ""
-let len = 0
-let symbols = ""
-let holdDelay = 0
-let frameDelay = 0
-let skipPressed = false
 let dialogueActive = false
 let oceanForest: tiles.TileMapData = null
 let crossroads: tiles.TileMapData = null
@@ -286,20 +326,32 @@ let playerAnimDown: Image[] = []
 let playerAnimUp: Image[] = []
 let playerAnimRight: Image[] = []
 let playerAnimLeft: Image[] = []
+let playerInvincible = false
+let playerHealth: StatusBarSprite = null
 let playerSprite: Sprite = null
 let pauseMenu: miniMenu.MenuItem[] = []
 let pauseMenuOpen = false
 let mapOpen = false
+let facing = ""
+let skipPressed = false
+let frameDelay = 0
+let holdDelay = 0
+let symbols = ""
+let len = 0
+let placeholders = ""
+let nameText: TextSprite = null
+let g = 0
+facing = "down"
 mapOpen = false
 pauseMenuOpen = false
 pauseMenu = [miniMenu.createMenuItem("Inventory", assets.image`inventoryIcon`), miniMenu.createMenuItem("Map", assets.image`mapIcon`), miniMenu.createMenuItem("Save & Quit", assets.image`saveAndQuitIcon`)]
 playerSprite = sprites.create(assets.image`playerImage`, SpriteKind.Player)
-let playerHealth = statusbars.create(24, 4, StatusBarKind.Health)
+playerHealth = statusbars.create(24, 4, StatusBarKind.Health)
 playerHealth.max = 100
 playerHealth.value = 100
 playerHealth.setFlag(SpriteFlag.RelativeToCamera, true)
 playerHealth.setPosition(20, 8)
-let playerInvincible = false
+playerInvincible = false
 playerAnimLeft = assets.animation`normalLeft`
 playerAnimRight = assets.animation`normalRight`
 playerAnimUp = assets.animation`normalUp`

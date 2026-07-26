@@ -250,6 +250,36 @@ f f f f f f f f f f f f f f f .
 . . . 8 8 2 2 6 6 6 6 6 6 8 . . 
 . . . . . . . . . . . . . . . . 
 `;
+            case "image8":
+            case "voidIcon":return img`
+. . . . . . . . . . . . . . d d 
+. . . . . . . . . . . . d d b b 
+. . . . . . . . . . . d b b b b 
+. . . . . . . . . . d b b b . . 
+. . . . . . . . . . d b b b . . 
+. . . . . . . . . d b b b . . . 
+. . . . . . . . d b b b . . . . 
+. . . . . . d d b b b . . . . . 
+. b b . . d b b b b b . . . . . 
+. . c b b d b b b . . . . . . . 
+. . b c c c b . . . . . . . . . 
+. . . 4 c c c . . . . . . . . . 
+. . 4 e c c c c c . . . . . . . 
+. 4 e e e . . . . . . . . . . . 
+4 e e e . . . . . . . . . . . . 
+e e . . . . . . . . . . . . . . 
+`;
+            case "image9":
+            case "voidBlade":return img`
+. . . . d . . . 
+. . . d b . . . 
+. . d b b . . . 
+. . d b b . . . 
+. . d b b . . . 
+. d b b b . . . 
+. d b b b . . . 
+. d b b b . . . 
+`;
         }
         return null;
     })

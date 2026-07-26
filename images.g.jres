@@ -39,6 +39,16 @@
         "mimeType": "image/x-mkcd-f4",
         "displayName": "ellaDictionary"
     },
+    "image8": {
+        "data": "hwQQABAAAAAAAAAAAAAA5AAAAAALAEDuAAAAAMsL5A4AAAAAsEzuDgAAAACwzOwAAAAAAN3MDAAAAADQu8sMAAAAANC7AAwAAAAAvbsADAAAANC7CwAAAADQvbsLAAAAAL27CwAAAADQu7sAAAAAANC7CwAAAAAAvQsAAAAAAAC9CwAAAAAAAA==",
+        "mimeType": "image/x-mkcd-f4",
+        "displayName": "voidIcon"
+    },
+    "image9": {
+        "data": "hwQIAAgAAAAAAAAAAADQ3QDdvbvQu7u7vbu7uwAAAAAAAAAAAAAAAA==",
+        "mimeType": "image/x-mkcd-f4",
+        "displayName": "voidBlade"
+    },
     "anim1": {
         "namespace": "myAnimations",
         "id": "anim1",
