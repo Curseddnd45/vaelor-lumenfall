@@ -124,13 +124,13 @@ controller.A.onEvent(ControllerButtonEvent.Pressed, function () {
     }
     // otherwise, look for a sign to read
     if (playerSprite.isHittingTile(CollisionDirection.Left) || playerSprite.isHittingTile(CollisionDirection.Top) || playerSprite.isHittingTile(CollisionDirection.Right) || playerSprite.isHittingTile(CollisionDirection.Bottom)) {
-        if (tileAroundSpriteIs(assets.tile`baseTransparency16`, playerSprite)) {
+        if (tileAroundSpriteIs(assets.tile`signVolcano`, playerSprite)) {
             sayLine("'To Volcano'", "Sign")
         }
-        if (tileAroundSpriteIs(assets.tile`baseTransparency16`, playerSprite)) {
+        if (tileAroundSpriteIs(assets.tile`signOcean`, playerSprite)) {
             sayLine("'To Ocean'", "Sign")
         }
-        if (tileAroundSpriteIs(assets.tile`baseTransparency16`, playerSprite)) {
+        if (tileAroundSpriteIs(assets.tile`signMountain`, playerSprite)) {
             sayLine("'To Mountain'", "Sign")
         }
     }
