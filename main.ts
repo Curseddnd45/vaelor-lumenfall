@@ -242,6 +242,28 @@ controller.down.onEvent(ControllerButtonEvent.Pressed, function () {
 function tileAroundSpriteIs (tile: Image, sprite: Sprite) {
     return sprite.tileKindAt(TileDirection.Bottom, tile) || sprite.tileKindAt(TileDirection.Right, tile) || sprite.tileKindAt(TileDirection.Top, tile) || sprite.tileKindAt(TileDirection.Left, tile)
 }
+function spawnEnemy (x: number, y: number) {
+    e = sprites.create(img`
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        `, SpriteKind.Enemy)
+    e.setPosition(x, y)
+}
+let e: Sprite = null
 let mapSprite: Sprite = null
 let myMenu: miniMenu.MenuSprite = null
 let g = 0
@@ -272,6 +294,12 @@ mapOpen = false
 pauseMenuOpen = false
 pauseMenu = [miniMenu.createMenuItem("Inventory", assets.image`inventoryIcon`), miniMenu.createMenuItem("Map", assets.image`mapIcon`), miniMenu.createMenuItem("Save & Quit", assets.image`saveAndQuitIcon`)]
 playerSprite = sprites.create(assets.image`playerImage`, SpriteKind.Player)
+let playerHealth = statusbars.create(24, 4, StatusBarKind.Health)
+playerHealth.max = 100
+playerHealth.value = 100
+playerHealth.setFlag(SpriteFlag.RelativeToCamera, true)
+playerHealth.setPosition(20, 8)
+let playerInvincible = false
 playerAnimLeft = assets.animation`normalLeft`
 playerAnimRight = assets.animation`normalRight`
 playerAnimUp = assets.animation`normalUp`
