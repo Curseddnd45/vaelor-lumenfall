@@ -61,6 +61,13 @@ wait(frameDelay)
 wait(holdDelay)
 nameText.destroy()
 }
+function useWeapon () {
+    timer.throttle("attack", 350, function () {
+        if (currentWeapon == "void") {
+            swingVoid()
+        }
+    })
+}
 controller.up.onEvent(ControllerButtonEvent.Pressed, function () {
     facing = "up"
     playerSprite.setImage(playerDeafultUp)
@@ -128,13 +135,19 @@ controller.A.onEvent(ControllerButtonEvent.Pressed, function () {
     if (playerSprite.isHittingTile(CollisionDirection.Left) || playerSprite.isHittingTile(CollisionDirection.Top) || playerSprite.isHittingTile(CollisionDirection.Right) || playerSprite.isHittingTile(CollisionDirection.Bottom)) {
         if (tileAroundSpriteIs(assets.tile`signVolcano`, playerSprite)) {
             sayLine("'To Volcano'", "Sign")
+            readASign = true
         }
         if (tileAroundSpriteIs(assets.tile`signOcean`, playerSprite)) {
             sayLine("'To Ocean'", "Sign")
+            readASign = true
         }
         if (tileAroundSpriteIs(assets.tile`signMountain`, playerSprite)) {
             sayLine("'To Mountain'", "Sign")
+            readASign = true
         }
+    }
+    if (!(readASign)) {
+        useWeapon()
     }
 })
 controller.left.onEvent(ControllerButtonEvent.Pressed, function () {
@@ -237,6 +250,29 @@ controller.right.onEvent(ControllerButtonEvent.Pressed, function () {
     characterAnimations.rule(Predicate.MovingRight)
     )
 })
+function swingVoid () {
+    // the sword is called Unnamed Iron Blade
+    voidBlade = sprites.create(assets.image`voidBladeUp`, SpriteKind.Weapon)
+    voidBlade.setFlag(SpriteFlag.GhostThroughSprites, false)
+    voidBlade.setFlag(SpriteFlag.GhostThroughTiles, false)
+    voidBlade.setFlag(SpriteFlag.GhostThroughWalls, false)
+    voidBlade.z = -1
+    if (facing == "up") {
+        voidBlade.setPosition(playerSprite.x, playerSprite.y - 12)
+    } else if (facing == "down") {
+        voidBlade.setImage(assets.image`voidBladeDown`)
+        voidBlade.setPosition(playerSprite.x, playerSprite.y + 12)
+    } else if (facing == "left") {
+        voidBlade.setImage(assets.image`voidBladeLeft`)
+        voidBlade.setPosition(playerSprite.x - 12, playerSprite.y)
+    } else {
+        voidBlade.setImage(assets.image`voidBladeRight`)
+        voidBlade.setPosition(playerSprite.x + 12, playerSprite.y)
+    }
+    timer.after(150, function () {
+        sprites.destroy(voidBlade)
+    })
+}
 controller.down.onEvent(ControllerButtonEvent.Pressed, function () {
     facing = "down"
     playerSprite.setImage(playerDeafultDown)
@@ -246,6 +282,15 @@ controller.down.onEvent(ControllerButtonEvent.Pressed, function () {
     250,
     characterAnimations.rule(Predicate.MovingDown)
     )
+})
+sprites.onOverlap(SpriteKind.Weapon, SpriteKind.Enemy, function (sprite, otherSprite) {
+    timer.throttle("enemyHit", 350, function () {
+        sprites.changeDataNumberBy(otherSprite, "hp", -1)
+        otherSprite.startEffect(effects.spray, 100)
+        if (sprites.readDataNumber(otherSprite, "hp") <= 0) {
+            sprites.destroy(otherSprite, effects.disintegrate, 300)
+        }
+    })
 })
 function tileAroundSpriteIs (tile: Image, sprite: Sprite) {
     return sprite.tileKindAt(TileDirection.Bottom, tile) || sprite.tileKindAt(TileDirection.Right, tile) || sprite.tileKindAt(TileDirection.Top, tile) || sprite.tileKindAt(TileDirection.Left, tile)
@@ -273,25 +318,6 @@ function spawnEnemy (x: number, y: number) {
     sprites.setDataNumber(e, "hp", 3)
     e.follow(playerSprite, 25)
 }
-function useVoid () {
-    // the sword is called Unnamed Iron Blade
-    voidBlade = sprites.create(assets.image`voidBlade`, SpriteKind.Weapon)
-    voidBlade.setFlag(SpriteFlag.GhostThroughSprites, false)
-    voidBlade.setFlag(SpriteFlag.GhostThroughTiles, false)
-    voidBlade.setFlag(SpriteFlag.GhostThroughWalls, false)
-    if (facing == "up") {
-        voidBlade.setPosition(playerSprite.x, playerSprite.y - 12)
-    } else if (facing == "down") {
-        voidBlade.setPosition(playerSprite.x, playerSprite.y + 12)
-    } else if (facing == "left") {
-        voidBlade.setPosition(playerSprite.x - 12, playerSprite.y)
-    } else {
-        voidBlade.setPosition(playerSprite.x + 12, playerSprite.y)
-    }
-    timer.after(150, function () {
-        sprites.destroy(voidBlade)
-    })
-}
 sprites.onOverlap(SpriteKind.Player, SpriteKind.Enemy, function (sprite, otherSprite) {
     if (playerInvincible) {
         return
@@ -310,8 +336,9 @@ sprites.onOverlap(SpriteKind.Player, SpriteKind.Enemy, function (sprite, otherSp
         game.gameOver(false)
     }
 })
-let voidBlade: Sprite = null
 let e: Sprite = null
+let voidBlade: Sprite = null
+let readASign = false
 let mapSprite: Sprite = null
 let myMenu: miniMenu.MenuSprite = null
 let dialogueActive = false
@@ -333,6 +360,7 @@ let pauseMenu: miniMenu.MenuItem[] = []
 let pauseMenuOpen = false
 let mapOpen = false
 let facing = ""
+let currentWeapon = ""
 let skipPressed = false
 let frameDelay = 0
 let holdDelay = 0
@@ -341,6 +369,7 @@ let len = 0
 let placeholders = ""
 let nameText: TextSprite = null
 let g = 0
+currentWeapon = "void"
 facing = "down"
 mapOpen = false
 pauseMenuOpen = false

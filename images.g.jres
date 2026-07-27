@@ -45,9 +45,24 @@
         "displayName": "voidIcon"
     },
     "image9": {
-        "data": "hwQIAAgAAAAAAAAAAADQ3QDdvbvQu7u7vbu7uwAAAAAAAAAAAAAAAA==",
+        "data": "hwQIABAAAAAAAAAAANDdAAAA0N3dvbvdAN29u7u7u7vQu7u7u7u7u727u7u7CwC7AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "mimeType": "image/x-mkcd-f4",
-        "displayName": "voidBlade"
+        "displayName": "voidBladeUp"
+    },
+    "t0Iw57|}q+m~E#)wob9$_img": {
+        "data": "hwQQAAgAAADQuwsA0LsLAL27AAC9uwAAvbsAANC7CwDQuwsA0LsLANC7CwDQuwsA0LsLAAC9CwAAvQsAAL0LAADQCwAAAA0A",
+        "mimeType": "image/x-mkcd-f4",
+        "displayName": "voidBladeRight"
+    },
+    "image10": {
+        "data": "hwQIABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAC7ALC7u7u727u7u7u7u7sNu7u7u7vb3QDdu9vd3Q0AAADdDQAAAAAA",
+        "mimeType": "image/x-mkcd-f4",
+        "displayName": "voidBladeDown"
+    },
+    "image11": {
+        "data": "hwQQAAgAAAAA0AAAALANAACw2wAAsNsAALDbAACwuw0AsLsNALC7DQCwuw0AsLsNALC7DQAAu9sAALvbAAC72wCwuw0AsLsN",
+        "mimeType": "image/x-mkcd-f4",
+        "displayName": "voidBladeLeft"
     },
     "anim1": {
         "namespace": "myAnimations",

@@ -270,7 +270,7 @@ f f f f f f f f f f f f f f f .
 e e . . . . . . . . . . . . . . 
 `;
             case "image9":
-            case "voidBlade":return img`
+            case "voidBladeUp":return img`
 . . . . d . . . 
 . . . d b . . . 
 . . d b b . . . 
@@ -279,6 +279,55 @@ e e . . . . . . . . . . . . . .
 . d b b b . . . 
 . d b b b . . . 
 . d b b b . . . 
+. d b b b . . . 
+. d b b b . . . 
+. d b b b . . . 
+d b b b . . . . 
+d b b b . . . . 
+d b b b . . . . 
+. d b b b . . . 
+. d b b b . . . 
+`;
+            case "t0Iw57|}q+m~E#)wob9$_img":
+            case "voidBladeRight":return img`
+. . d d d . . . . . . . . . . . 
+d d b b b d d d d d d . . . . . 
+b b b b b b b b b b b d d d . . 
+b b b b b b b b b b b b b b d . 
+b b . . . b b b b b b b b b b d 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+`;
+            case "image10":
+            case "voidBladeDown":return img`
+. . . b b b d . 
+. . . b b b d . 
+. . . . b b b d 
+. . . . b b b d 
+. . . . b b b d 
+. . . b b b d . 
+. . . b b b d . 
+. . . b b b d . 
+. . . b b b d . 
+. . . b b b d . 
+. . . b b b d . 
+. . . b b d . . 
+. . . b b d . . 
+. . . b b d . . 
+. . . b d . . . 
+. . . d . . . . 
+`;
+            case "image11":
+            case "voidBladeLeft":return img`
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+d b b b b b b b b b b . . . b b 
+. d b b b b b b b b b b b b b b 
+. . d d d b b b b b b b b b b b 
+. . . . . d d d d d d b b b d d 
+. . . . . . . . . . . d d d . . 
 `;
         }
         return null;
