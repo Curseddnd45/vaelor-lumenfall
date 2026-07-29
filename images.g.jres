@@ -64,6 +64,11 @@
         "mimeType": "image/x-mkcd-f4",
         "displayName": "voidBladeLeft"
     },
+    "image12": {
+        "data": "hwQQABAAAAAAAAAAAPD/AAAAAAAAwLEAAAD//w8f+wAA/929/B+xAPAbEd29H/sA8BERvRzM8Q8fERHxH73/Dx8REdER+///HxER0RGx//8fERHxH/v///AREb0czbEP8BsR3b0f+wAA/929/B+xAAAA//8PH/sAAAAAAADPsQAAAAAAAPD/AA==",
+        "mimeType": "image/x-mkcd-f4",
+        "displayName": "Enemy"
+    },
     "anim1": {
         "namespace": "myAnimations",
         "id": "anim1",
