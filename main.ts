@@ -134,16 +134,19 @@ controller.A.onEvent(ControllerButtonEvent.Pressed, function () {
     // otherwise, look for a sign to read
     if (playerSprite.isHittingTile(CollisionDirection.Left) || playerSprite.isHittingTile(CollisionDirection.Top) || playerSprite.isHittingTile(CollisionDirection.Right) || playerSprite.isHittingTile(CollisionDirection.Bottom)) {
         if (tileAroundSpriteIs(assets.tile`signVolcano`, playerSprite)) {
-            sayLine("'To Volcano'", "Sign")
             readASign = true
+            sayLine("'To Volcano'", "Sign")
+            readASign = false
         }
         if (tileAroundSpriteIs(assets.tile`signOcean`, playerSprite)) {
-            sayLine("'To Ocean'", "Sign")
             readASign = true
+            sayLine("'To Ocean'", "Sign")
+            readASign = false
         }
         if (tileAroundSpriteIs(assets.tile`signMountain`, playerSprite)) {
-            sayLine("'To Mountain'", "Sign")
             readASign = true
+            sayLine("'To Mountain'", "Sign")
+            readASign = false
         }
     }
     if (!(readASign)) {
@@ -341,6 +344,14 @@ let voidBlade: Sprite = null
 let readASign = false
 let mapSprite: Sprite = null
 let myMenu: miniMenu.MenuSprite = null
+let g = 0
+let nameText: TextSprite = null
+let placeholders = ""
+let len = 0
+let symbols = ""
+let holdDelay = 0
+let frameDelay = 0
+let skipPressed = false
 let dialogueActive = false
 let oceanForest: tiles.TileMapData = null
 let crossroads: tiles.TileMapData = null
@@ -361,14 +372,6 @@ let pauseMenuOpen = false
 let mapOpen = false
 let facing = ""
 let currentWeapon = ""
-let skipPressed = false
-let frameDelay = 0
-let holdDelay = 0
-let symbols = ""
-let len = 0
-let placeholders = ""
-let nameText: TextSprite = null
-let g = 0
 currentWeapon = "void"
 facing = "down"
 mapOpen = false

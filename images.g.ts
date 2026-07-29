@@ -330,7 +330,7 @@ d b b b b b b b b b b . . . b b
 . . . . . . . . . . . d d d . . 
 `;
             case "image12":
-            case "Enemy":return img`
+            case "enemy":return img`
 . . . . . . f f f f . . . . . . 
 . . . . f f 1 1 1 1 f f . . . . 
 . . . f b 1 1 1 1 1 1 b f . . . 
