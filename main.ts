@@ -7,11 +7,11 @@ namespace SpriteKind {
 function scrambleCharacterName (name: string) {
     // ---- tweak these two for speed ----
     // ms between flicker frames (try 40-80)
-    frameDelay = 100
+    frameDelay = 55
     // ms to hold the finished name
-    holdDelay = 500
+    holdDelay = 250
     // -----------------------------------
-    symbols = "!\"£$%^&*()_+-=[];'#,./<>?:@~{}"
+    symbols = "!@#$%^&*()_+?><-="
     len = name.length
     let makeSymbols = (count: number) => {
         let str = ""
@@ -134,19 +134,16 @@ controller.A.onEvent(ControllerButtonEvent.Pressed, function () {
     // otherwise, look for a sign to read
     if (playerSprite.isHittingTile(CollisionDirection.Left) || playerSprite.isHittingTile(CollisionDirection.Top) || playerSprite.isHittingTile(CollisionDirection.Right) || playerSprite.isHittingTile(CollisionDirection.Bottom)) {
         if (tileAroundSpriteIs(assets.tile`signVolcano`, playerSprite)) {
-            readASign = true
             sayLine("'To Volcano'", "Sign")
-            readASign = false
+            readASign = true
         }
         if (tileAroundSpriteIs(assets.tile`signOcean`, playerSprite)) {
-            readASign = true
             sayLine("'To Ocean'", "Sign")
-            readASign = false
+            readASign = true
         }
         if (tileAroundSpriteIs(assets.tile`signMountain`, playerSprite)) {
-            readASign = true
             sayLine("'To Mountain'", "Sign")
-            readASign = false
+            readASign = true
         }
     }
     if (!(readASign)) {
@@ -299,7 +296,24 @@ function tileAroundSpriteIs (tile: Image, sprite: Sprite) {
     return sprite.tileKindAt(TileDirection.Bottom, tile) || sprite.tileKindAt(TileDirection.Right, tile) || sprite.tileKindAt(TileDirection.Top, tile) || sprite.tileKindAt(TileDirection.Left, tile)
 }
 function spawnEnemy (x: number, y: number) {
-    e = sprites.create(assets.image`Enemy`, SpriteKind.Enemy)
+    e = sprites.create(img`
+        . . . . . . f f f f . . . . . . 
+        . . . . f f 1 1 1 1 f f . . . . 
+        . . . f b 1 1 1 1 1 1 b f . . . 
+        . . . f 1 1 1 1 1 1 1 1 f . . . 
+        . . f d 1 1 1 1 1 1 1 1 d f . . 
+        . . f d 1 1 1 1 1 1 1 1 d f . . 
+        . . f d d d 1 1 1 1 d d d f . . 
+        . . f b d b f d d f b d b f . . 
+        . . f c d c f 1 1 f c d c f . . 
+        . . . f b 1 1 1 1 1 1 b f . . . 
+        . . f f f c d b 1 b d f f f f . 
+        f c 1 1 1 c b f b f c 1 1 1 c f 
+        f 1 b 1 b 1 f f f f 1 b 1 b 1 f 
+        f b f b f f f f f f b f b f b f 
+        . . . . . f f f f f f . . . . . 
+        . . . . . . . f f f . . . . . . 
+        `, SpriteKind.Enemy)
     e.setPosition(x, y)
     sprites.setDataNumber(e, "hp", 3)
     e.follow(playerSprite, 25)
@@ -327,14 +341,6 @@ let voidBlade: Sprite = null
 let readASign = false
 let mapSprite: Sprite = null
 let myMenu: miniMenu.MenuSprite = null
-let g = 0
-let nameText: TextSprite = null
-let placeholders = ""
-let len = 0
-let symbols = ""
-let holdDelay = 0
-let frameDelay = 0
-let skipPressed = false
 let dialogueActive = false
 let oceanForest: tiles.TileMapData = null
 let crossroads: tiles.TileMapData = null
@@ -355,6 +361,14 @@ let pauseMenuOpen = false
 let mapOpen = false
 let facing = ""
 let currentWeapon = ""
+let skipPressed = false
+let frameDelay = 0
+let holdDelay = 0
+let symbols = ""
+let len = 0
+let placeholders = ""
+let nameText: TextSprite = null
+let g = 0
 currentWeapon = "void"
 facing = "down"
 mapOpen = false
