@@ -63,8 +63,8 @@ nameText.destroy()
 }
 function useWeapon () {
     timer.throttle("attack", 350, function () {
-        if (currentWeapon == "void") {
-            swingVoid()
+        if (currentWeapon == "bubble") {
+            swingbubble()
         }
     })
 }
@@ -120,18 +120,15 @@ controller.B.onEvent(ControllerButtonEvent.Pressed, function () {
     }
 })
 controller.A.onEvent(ControllerButtonEvent.Pressed, function () {
-    // don't do anything while the pause menu is open
     if (pauseMenuOpen) {
         return
     }
-    // if someone is talking, skip it
     if (dialogueActive) {
         skipPressed = true
         story.cancelCurrentCutscene()
         dialogueActive = false
         return
     }
-    // otherwise, look for a sign to read
     if (playerSprite.isHittingTile(CollisionDirection.Left) || playerSprite.isHittingTile(CollisionDirection.Top) || playerSprite.isHittingTile(CollisionDirection.Right) || playerSprite.isHittingTile(CollisionDirection.Bottom)) {
         if (tileAroundSpriteIs(assets.tile`signVolcano`, playerSprite)) {
             readASign = true
@@ -253,29 +250,6 @@ controller.right.onEvent(ControllerButtonEvent.Pressed, function () {
     characterAnimations.rule(Predicate.MovingRight)
     )
 })
-function swingVoid () {
-    // the sword is called Unnamed Iron Blade
-    voidBlade = sprites.create(assets.image`voidBladeUp`, SpriteKind.Weapon)
-    voidBlade.setFlag(SpriteFlag.GhostThroughSprites, false)
-    voidBlade.setFlag(SpriteFlag.GhostThroughTiles, false)
-    voidBlade.setFlag(SpriteFlag.GhostThroughWalls, false)
-    voidBlade.z = -1
-    if (facing == "up") {
-        voidBlade.setPosition(playerSprite.x, playerSprite.y - 12)
-    } else if (facing == "down") {
-        voidBlade.setImage(assets.image`voidBladeDown`)
-        voidBlade.setPosition(playerSprite.x, playerSprite.y + 12)
-    } else if (facing == "left") {
-        voidBlade.setImage(assets.image`voidBladeLeft`)
-        voidBlade.setPosition(playerSprite.x - 12, playerSprite.y)
-    } else {
-        voidBlade.setImage(assets.image`voidBladeRight`)
-        voidBlade.setPosition(playerSprite.x + 12, playerSprite.y)
-    }
-    timer.after(150, function () {
-        sprites.destroy(voidBlade)
-    })
-}
 controller.down.onEvent(ControllerButtonEvent.Pressed, function () {
     facing = "down"
     playerSprite.setImage(playerDeafultDown)
@@ -321,6 +295,29 @@ function spawnEnemy (x: number, y: number) {
     sprites.setDataNumber(e, "hp", 3)
     e.follow(playerSprite, 25)
 }
+function swingbubble () {
+    // the sword is called Unnamed Iron Blade
+    bubble = sprites.create(assets.image`bubbleUp`, SpriteKind.Weapon)
+    bubble.setFlag(SpriteFlag.GhostThroughSprites, false)
+    bubble.setFlag(SpriteFlag.GhostThroughTiles, false)
+    bubble.setFlag(SpriteFlag.GhostThroughWalls, false)
+    bubble.z = -1
+    if (facing == "up") {
+        bubble.setPosition(playerSprite.x, playerSprite.y - 12)
+    } else if (facing == "down") {
+        bubble.setImage(assets.image`bubbleDown`)
+        bubble.setPosition(playerSprite.x, playerSprite.y + 12)
+    } else if (facing == "left") {
+        bubble.setImage(assets.image`bubbleLeft`)
+        bubble.setPosition(playerSprite.x - 12, playerSprite.y)
+    } else {
+        bubble.setImage(assets.image`bubbleRight`)
+        bubble.setPosition(playerSprite.x + 12, playerSprite.y)
+    }
+    timer.after(150, function () {
+        sprites.destroy(bubble)
+    })
+}
 sprites.onOverlap(SpriteKind.Player, SpriteKind.Enemy, function (sprite, otherSprite) {
     if (playerInvincible) {
         return
@@ -339,8 +336,8 @@ sprites.onOverlap(SpriteKind.Player, SpriteKind.Enemy, function (sprite, otherSp
         game.gameOver(false)
     }
 })
+let bubble: Sprite = null
 let e: Sprite = null
-let voidBlade: Sprite = null
 let readASign = false
 let mapSprite: Sprite = null
 let myMenu: miniMenu.MenuSprite = null
@@ -372,7 +369,7 @@ let pauseMenuOpen = false
 let mapOpen = false
 let facing = ""
 let currentWeapon = ""
-currentWeapon = "void"
+currentWeapon = "bubble"
 facing = "down"
 mapOpen = false
 pauseMenuOpen = false
