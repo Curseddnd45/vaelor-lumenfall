@@ -95,30 +95,64 @@ scene.onOverlapTile(SpriteKind.Player, tileUtil.door0, function (sprite, locatio
 controller.B.onEvent(ControllerButtonEvent.Pressed, function () {
     if (!(pauseMenuOpen)) {
         controller.moveSprite(playerSprite, 0, 0)
-        myMenu = miniMenu.createMenuFromArray(pauseMenu)
+        menuLevel = 1
         pauseMenuOpen = true
-        myMenu.setPosition(scene.cameraProperty(CameraProperty.X), scene.cameraProperty(CameraProperty.Y))
-        myMenu.setTitle("Game Paused")
-        myMenu.onButtonPressed(controller.A, function (selection, selectedIndex) {
-            if (selection == "Map") {
-                if (!(mapOpen)) {
-                    mapSprite = sprites.create(assets.image`Map`, SpriteKind.Map)
-                    mapSprite.setPosition(scene.cameraProperty(CameraProperty.X), scene.cameraProperty(CameraProperty.Y))
-                    mapOpen = true
-                } else {
-                    sprites.destroy(mapSprite)
-                    mapOpen = false
-                }
-            }
-        })
+        showMenu(1)
     } else {
         sprites.destroy(mapSprite)
         mapOpen = false
+        menuLevel = 1
         myMenu.close()
         controller.moveSprite(playerSprite)
         pauseMenuOpen = false
     }
 })
+function showMenu (level: number) {
+    menuLevel = level
+    if (level == 1) {
+        myMenu = miniMenu.createMenuFromArray(pauseMenu)
+        myMenu.setTitle("Game Paused")
+    } else if (level == 2) {
+        myMenu = miniMenu.createMenuFromArray(inventoryMenu)
+        myMenu.setTitle("Inventory")
+    } else if (level == 3) {
+        myMenu = miniMenu.createMenuFromArray(weaponsMenu)
+        myMenu.setTitle("Weapons")
+    }
+    myMenu.setPosition(scene.cameraProperty(CameraProperty.X), scene.cameraProperty(CameraProperty.Y))
+    myMenu.onButtonPressed(controller.A, function (selection, selectedIndex) {
+        menuNav(selection)
+    })
+}
+function menuNav (selection: string) {
+    if (selection == "Map") {
+        if (!(mapOpen)) {
+            mapSprite = sprites.create(assets.image`Map`, SpriteKind.Map)
+            mapSprite.setPosition(scene.cameraProperty(CameraProperty.X), scene.cameraProperty(CameraProperty.Y))
+            mapOpen = true
+        } else {
+            sprites.destroy(mapSprite)
+            mapOpen = false
+        }
+    } else if (selection == "Inventory") {
+        myMenu.close()
+        menuLevel = 2
+        showMenu(2)
+    } else if (selection == "Weapons") {
+        myMenu.close()
+        menuLevel = 3
+        showMenu(3)
+    } else if (selection == "Back") {
+        myMenu.close()
+        if (menuLevel == 3) {
+            menuLevel = 2
+            showMenu(2)
+        } else {
+            menuLevel = 1
+            showMenu(1)
+        }
+    }
+}
 controller.A.onEvent(ControllerButtonEvent.Pressed, function () {
     if (pauseMenuOpen) {
         return
@@ -296,7 +330,7 @@ function spawnEnemy (x: number, y: number) {
     e.follow(playerSprite, 25)
 }
 function swingbubble () {
-    // the sword is called Unnamed Iron Blade
+    // the weapon is called The Enchanted Bubble Blower
     bubble = sprites.create(assets.image`bubbleUp`, SpriteKind.Weapon)
     bubble.setFlag(SpriteFlag.GhostThroughSprites, false)
     bubble.setFlag(SpriteFlag.GhostThroughTiles, false)
@@ -365,6 +399,9 @@ let playerInvincible = false
 let playerHealth: StatusBarSprite = null
 let playerSprite: Sprite = null
 let pauseMenu: miniMenu.MenuItem[] = []
+let inventoryMenu: miniMenu.MenuItem[] = []
+let weaponsMenu: miniMenu.MenuItem[] = []
+let menuLevel = 1
 let pauseMenuOpen = false
 let mapOpen = false
 let facing = ""
@@ -374,6 +411,9 @@ facing = "down"
 mapOpen = false
 pauseMenuOpen = false
 pauseMenu = [miniMenu.createMenuItem("Inventory", assets.image`inventoryIcon`), miniMenu.createMenuItem("Map", assets.image`mapIcon`), miniMenu.createMenuItem("Save & Quit", assets.image`saveAndQuitIcon`)]
+inventoryMenu = [miniMenu.createMenuItem("Weapons", assets.image`inventoryIcon`), miniMenu.createMenuItem("Back", assets.image`inventoryIcon`)]
+weaponsMenu = [miniMenu.createMenuItem("The Enchanted Bubble Blower", assets.image`bubbleIcon`), miniMenu.createMenuItem("Back", assets.image`inventoryIcon`)]
+menuLevel = 1
 playerSprite = sprites.create(assets.image`playerImage`, SpriteKind.Player)
 playerHealth = statusbars.create(24, 4, StatusBarKind.Health)
 playerHealth.max = 100
